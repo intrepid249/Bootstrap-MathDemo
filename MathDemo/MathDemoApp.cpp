@@ -3,8 +3,9 @@
 #include "Font.h"
 #include "Input.h"
 #include "Renderer2D.h"
-#include "SpriteNode.h"
+#include "GameEntity.h"
 #include "Node.h"
+#include <Utility.h>
 
 #include <ResourceManager.h>
 
@@ -22,8 +23,9 @@ bool MathDemoApp::startup() {
 
 	m_textures[TANK_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankBlue.png");
 
-	tank = std::unique_ptr<SpriteNode>(new SpriteNode(m_textures[TANK_TEX].get()));
+	tank = std::unique_ptr<GameEntity>(new GameEntity(m_textures[TANK_TEX].get()));
 	tank->translate(Vector2(300, 300));
+	tank->rotate(radToDeg(45));
 	tank->debug(true);
 	m_nodes.push_back(std::move(tank));
 
@@ -40,6 +42,9 @@ void MathDemoApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+
+	for (size_t i = 0; i < m_nodes.size(); ++i)
+		m_nodes[i]->update(deltaTime);
 }
 
 void MathDemoApp::draw() {

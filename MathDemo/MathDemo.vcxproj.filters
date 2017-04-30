@@ -33,7 +33,13 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\Nodes</Filter>
     </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SpriteNode.cpp">
+      <Filter>Source Files\Nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +59,13 @@
     <ClInclude Include="ResourceManager\ResourceManager.h">
       <Filter>Header Files\ResourceManager</Filter>
     </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="SpriteNode.h">
+      <Filter>Header Files\Nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

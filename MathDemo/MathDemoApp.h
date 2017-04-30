@@ -11,7 +11,7 @@ namespace aie {
 };
 
 class Node;
-class SpriteNode;
+class GameEntity;
 
 class MathDemoApp : public aie::Application {
 public:
@@ -29,7 +29,7 @@ protected:
 
 	std::map<eTexID, std::shared_ptr<aie::Texture>> m_textures;
 
-	std::unique_ptr<SpriteNode>	tank;
+	std::unique_ptr<GameEntity>	tank;
 	std::vector<std::unique_ptr<Node>>	m_nodes;
 
 	std::unique_ptr<aie::Renderer2D>	m_renderer;
