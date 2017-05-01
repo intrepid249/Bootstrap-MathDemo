@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include <vector>
 
 class OBB : public Node {
 public:
@@ -7,7 +8,8 @@ public:
 	OBB(float width, float height);
 	~OBB();
 
-	void updatePoints();
+	virtual void render(aie::Renderer2D *renderer);
+	void updatePointsByMatrix(float *worldMat);
 
 	bool contains(Vector2 &point);
 	//bool intersects(line);
@@ -15,4 +17,8 @@ public:
 
 protected:
 	Vector2 m_size;
+
+	// Store the points clockwise from topleft
+	// {topLeft, topRight, bottomRight, bottomLeft}
+	std::vector<Vector2> m_points;
 };

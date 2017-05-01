@@ -1,15 +1,61 @@
 #include "OBB.h"
 #include <Vector2.h>
-
+#include <Renderer2D.h>
 
 OBB::OBB() {}
 
-OBB::OBB(float width, float height) : m_size(Vector2(width, height)) {}
-
+OBB::OBB(float width, float height) : m_size(Vector2(width, height)) 
+{
+	for (int i = 0; i < 4; i++)
+		m_points.push_back(Vector2());
+}
 
 OBB::~OBB() {}
 
+void OBB::render(aie::Renderer2D *renderer) {
+	for (size_t i = 0; i < m_points.size(); ++i) {
+		renderer->setRenderColour(0xff0000ff);
+		Vector2 p = m_points[i];
+		renderer->drawBox(p.x, p.y, 5, 5);
+		renderer->setRenderColour(0xffffffff);
+	}
+}
+
+void OBB::updatePointsByMatrix(float  *worldMat) {
+	float width = m_size.x;				float height = m_size.y;
+	float xOrigin = 0.5f;		float yOrigin = 0.5f;
+
+	float tlX = (0.0f - xOrigin) * width;		float tlY = (0.0f - yOrigin) * height;
+	float trX = (1.0f - xOrigin) * width;		float trY = (0.0f - yOrigin) * height;
+	float brX = (1.0f - xOrigin) * width;		float brY = (1.0f - yOrigin) * height;
+	float blX = (0.0f - xOrigin) * width;		float blY = (1.0f - yOrigin) * height;
+
+
+	float x, y;
+	x = tlX; y = tlY;
+	tlX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
+	tlY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
+	m_points[0] = Vector2(tlX, tlY);
+
+	x = trX; y = trY;
+	trX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
+	trY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
+	m_points[1] = Vector2(trX, trY);
+
+	x = brX; y = brY;
+	brX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
+	brY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
+	m_points[2] = Vector2(brX, brY);
+
+	x = blX; y = blY;
+	blX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
+	blY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
+	m_points[3] = Vector2(blX, blY);
+}
+
 bool OBB::contains(Vector2 & point) {
+	//if (point.x < )
+
 	return false;
 }
 

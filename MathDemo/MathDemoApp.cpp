@@ -25,9 +25,8 @@ bool MathDemoApp::startup() {
 
 	tank = std::unique_ptr<GameEntity>(new GameEntity(m_textures[TANK_TEX].get()));
 	tank->translate(Vector2(300, 300));
-	tank->rotate(radToDeg(45));
 	tank->debug(true);
-	m_nodes.push_back(std::move(tank));
+	m_nodes.push_back(tank.get());
 
 	return true;
 }
@@ -42,6 +41,11 @@ void MathDemoApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+
+	tank->rotate(degToRad(.05f));
+
+	float x = rand() % 10 * 0.01f, y = rand() % 4 * 0.01f;
+	tank->translate(Vector2(x, y));
 
 	for (size_t i = 0; i < m_nodes.size(); ++i)
 		m_nodes[i]->update(deltaTime);

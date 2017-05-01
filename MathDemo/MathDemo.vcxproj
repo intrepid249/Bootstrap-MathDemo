@@ -90,16 +90,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AABB.cpp" />
     <ClCompile Include="GameEntity.cpp" />
     <ClCompile Include="MathDemoApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="OBB.cpp" />
     <ClCompile Include="SpriteNode.cpp" />
+    <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AABB.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="MathDemoApp.h" />
     <ClInclude Include="Node.h" />
@@ -108,6 +107,7 @@
     <ClInclude Include="ResourceManager\ResourceManager.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="SpriteNode.h" />
+    <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

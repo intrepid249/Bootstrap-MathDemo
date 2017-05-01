@@ -2,7 +2,7 @@
 #include <Texture.h>
 #include <memory>
 
-#include "AABB.h"
+#include "OBB.h"
 #include "GameEntity.h"
 
 
@@ -10,7 +10,7 @@ GameEntity::GameEntity() {
 }
 
 GameEntity::GameEntity(aie::Texture * tex) : SpriteNode(tex) {
-	collider = std::unique_ptr<AABB>(new AABB(getLocPos().x, getLocPos().y, tex->getWidth(), tex->getHeight()));
+	collider = std::unique_ptr<OBB>(new OBB(tex->getWidth(), tex->getHeight()));
 	collider->debug(true);
 	collider->setParent(this);
 }
@@ -21,7 +21,7 @@ GameEntity::~GameEntity() {
 
 void GameEntity::update(float dt) {
 	SpriteNode::update(dt);
-	collider->updateSizeByRotation(getLocRot());
+	collider->updatePointsByMatrix((float*)getTransform());
 }
 
 void GameEntity::render(aie::Renderer2D * renderer) {
