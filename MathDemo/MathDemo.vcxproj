@@ -95,6 +95,7 @@
     <ClCompile Include="MathDemoApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="OBB.cpp" />
     <ClCompile Include="SpriteNode.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,7 @@
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="MathDemoApp.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="OBB.h" />
     <ClInclude Include="ResourceManager\ErrorManager.h" />
     <ClInclude Include="ResourceManager\ResourceManager.h" />
     <ClInclude Include="settings.h" />

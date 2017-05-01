@@ -22,6 +22,12 @@
     <Filter Include="Header Files\ResourceManager">
       <UniqueIdentifier>{709a5efa-b652-46bd-91fa-a5a9fcc85b82}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Colliders">
+      <UniqueIdentifier>{87787c87-2319-4ac3-a966-575700af0b17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Colliders">
+      <UniqueIdentifier>{05dda5eb-76cc-4a39-9c83-6ba952c85b71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MathDemoApp.cpp">
@@ -33,14 +39,17 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files\Nodes</Filter>
     </ClCompile>
-    <ClCompile Include="AABB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteNode.cpp">
       <Filter>Source Files\Nodes</Filter>
     </ClCompile>
     <ClCompile Include="GameEntity.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Source Files\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="OBB.cpp">
+      <Filter>Source Files\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,14 +68,17 @@
     <ClInclude Include="ResourceManager\ResourceManager.h">
       <Filter>Header Files\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="AABB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteNode.h">
       <Filter>Header Files\Nodes</Filter>
     </ClInclude>
     <ClInclude Include="GameEntity.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Header Files\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="OBB.h">
+      <Filter>Header Files\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
