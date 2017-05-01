@@ -17,8 +17,6 @@ public:
 	virtual void draw();
 
 protected:
-	//asd
-
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Texture*		m_texture;
 	aie::Texture*		m_shipTexture;
