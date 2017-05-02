@@ -8,6 +8,7 @@
 #include "Vehicle.h"
 #include <Utility.h>
 #include "OBB.h"
+#include "settings.h"
 
 #include <ResourceManager.h>
 
@@ -27,8 +28,11 @@ bool MathDemoApp::startup() {
 
 	tank = std::unique_ptr<Vehicle>(new Vehicle(m_textures[TANK_TEX].get()));
 	tank->translate(Vector2(300, 300));
+	tank->setControls(aie::INPUT_KEY_W, aie::INPUT_KEY_S, aie::INPUT_KEY_A, aie::INPUT_KEY_D);
 	tank->debug(true);
 	m_nodes.push_back(tank.get());
+
+	std::cout << "tank is instanceof Vehicle class: " << instanceof<Vehicle>(tank.get()) << "\n";
 
 	return true;
 }
@@ -46,13 +50,14 @@ void MathDemoApp::update(float deltaTime) {
 	// Get the mouse position on the screen
 	int mouseX, mouseY;
 	input->getMouseXY(&mouseX, &mouseY);
-	m_mousePos = Vector2(mouseX, mouseY);
+	m_mousePos = Vector2((float)mouseX, (float)mouseY);
 
-	tank->updateToFaceMouse(m_mousePos);
+	//tank->updateToFaceMouse(m_mousePos);
+	tank->updateControls(input);
 	//tank->rotate(degToRad(.5f));
 
-	float x = rand() % 10 * 0.1f, y = rand() % 4 * 0.1f;
-	tank->translate(Vector2(x, y));
+	//float x = rand() % 10 * 0.1f, y = rand() % 4 * 0.1f;
+	//tank->translate(Vector2(x, y));
 
 	for (size_t i = 0; i < m_nodes.size(); ++i)
 		m_nodes[i]->update(deltaTime);

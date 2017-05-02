@@ -8,3 +8,14 @@
 #define SCREENHEIGHT 720
 #define FULLSCREEN false
 #endif
+
+#pragma region Tank
+#define TANK_MOVESPEED 0.3f
+#pragma endregion
+
+#pragma region UTILS
+template <typename Base, typename T>
+inline bool instanceof(const T*) {
+	return std::is_base_of<Base, T>::value;
+}
+#pragma endregion

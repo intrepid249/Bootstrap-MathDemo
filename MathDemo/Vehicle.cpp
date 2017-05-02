@@ -1,5 +1,8 @@
 #include "Vehicle.h"
 #include <Texture.h>
+#include "settings.h"
+
+#include <iostream>
 
 
 Vehicle::Vehicle() {
@@ -7,7 +10,7 @@ Vehicle::Vehicle() {
 }
 
 Vehicle::Vehicle(aie::Texture * tex) : GameEntity(tex) {
-
+	m_moveBW = m_moveFW = m_turnL = m_turnR = false;
 }
 
 
@@ -20,7 +23,7 @@ void Vehicle::setControls(aie::EInputCodes fwKey, aie::EInputCodes bwKey, aie::E
 
 void Vehicle::updateControls(aie::Input * input) {
 	if (input->isKeyDown(m_fwKey))
-		m_moveFW = true;
+		m_moveFW = true, std::cout<<"MoveFW\n";
 	if (input->isKeyDown(m_bwKey))
 		m_moveBW = true;
 	if (input->isKeyDown(m_lKey))
@@ -39,15 +42,29 @@ void Vehicle::updateControls(aie::Input * input) {
 }
 
 void Vehicle::updateToFaceMouse(Vector2 & mousePos) {
-	Vector2 target = mousePos - getTransform().getTranslation();
+	Vector2 target = mousePos - getLocPos();
 	float radians = atan2f(target.y, target.x);
 	getTransform().setRotateZ(radians);
 }
 
 void Vehicle::update(float dt) {
 	GameEntity::update(dt);
+
+	float rot = getTransform().getRotationZ();
+	if (m_moveFW)
+		setMoveSpeed(Vector2(cosf(rot) * TANK_MOVESPEED, sinf(rot) * TANK_MOVESPEED));
+	else if (m_moveBW)
+		setMoveSpeed(Vector2(-cosf(rot) * TANK_MOVESPEED, -sinf(rot) * TANK_MOVESPEED));
+	else
+		setMoveSpeed(Vector2(0, 0));
+
+	translate(m_moveSpeed);
 }
 
 void Vehicle::render(aie::Renderer2D * renderer) {
 	GameEntity::render(renderer);
+}
+
+void Vehicle::setMoveSpeed(const Vector2 val) {
+	m_moveSpeed = val;
 }
