@@ -61,9 +61,12 @@ void OBB::updatePointsByMatrix(float  *worldMat) {
 }
 
 bool OBB::contains(Vector2 & point) {
-	//if (point.x < )
+	Vector2 pos = m_parent->getLocPos();
 
-	return false;
+	if (point.x < pos.x-m_size.x / 2 || point.x > pos.x+m_size.x / 2) return false;
+	if (point.y < pos.y-m_size.y / 2 || point.y > pos.y+m_size.y / 2) return false;
+
+	return true;
 }
 
 bool OBB::collides(OBB & rhs) {

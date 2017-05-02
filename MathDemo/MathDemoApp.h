@@ -4,6 +4,7 @@
 #include <map>
 #include <memory>
 #include <Texture.h>
+#include <Vector2.h>
 
 namespace aie {
 	class Font;
@@ -36,5 +37,6 @@ protected:
 	std::unique_ptr<aie::Renderer2D>	m_renderer;
 	std::unique_ptr<aie::Font>			m_font;
 
-	
+
+	Vector2 m_mousePos, m_cameraPos;
 };

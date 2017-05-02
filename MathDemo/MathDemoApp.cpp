@@ -7,6 +7,7 @@
 #include "Node.h"
 #include "Vehicle.h"
 #include <Utility.h>
+#include "OBB.h"
 
 #include <ResourceManager.h>
 
@@ -36,12 +37,17 @@ void MathDemoApp::shutdown() {
 }
 
 void MathDemoApp::update(float deltaTime) {
-	// input example
 	aie::Input* input = aie::Input::getInstance();
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+
+	// Get the mouse position on the screen
+	int mouseX, mouseY;
+	input->getMouseXY(&mouseX, &mouseY);
+	m_mousePos = Vector2(mouseX, mouseY);
+
 
 	tank->rotate(degToRad(.5f));
 
@@ -62,8 +68,10 @@ void MathDemoApp::draw() {
 	// draw your stuff here!
 	for (size_t i = 0; i < m_nodes.size(); ++i)
 		m_nodes[i]->render(m_renderer.get());
-	
-	// output some text, uses the last used colour
+
+	if (tank->getCollider()->contains(m_mousePos))
+		m_renderer->drawCircle(m_mousePos.x, m_mousePos.y, 3);
+
 	m_renderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
