@@ -4,6 +4,7 @@
 
 
 Node::Node() {
+	m_debugDraw = false;
 }
 
 
@@ -53,7 +54,7 @@ void Node::rotate(float radians) {
 	m_local = m_local * rotation;
 }
 
-Vector2 & Node::getLocPos() {
+Vector2 Node::getLocPos() {
 	return m_local.getTranslation();
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-class memory;
+#include <memory>
 class OBB;
 #include "SpriteNode.h"
 

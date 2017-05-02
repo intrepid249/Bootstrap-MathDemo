@@ -12,6 +12,7 @@ namespace aie {
 
 class Node;
 class GameEntity;
+class Vehicle;
 
 class MathDemoApp : public aie::Application {
 public:

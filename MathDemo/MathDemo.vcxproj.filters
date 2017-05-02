@@ -34,6 +34,12 @@
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{6f096a9b-385c-468e-8ef6-9ed1c680ad13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entities\Vehicles">
+      <UniqueIdentifier>{46123a32-b129-4cb0-a374-4e369f502da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities\Vehicles">
+      <UniqueIdentifier>{90c5dd09-a7a5-4488-a57b-34e04e16fe1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MathDemoApp.cpp">
@@ -55,7 +61,7 @@
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Vehicle.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entities\Vehicles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +90,7 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Vehicle.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities\Vehicles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

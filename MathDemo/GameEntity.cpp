@@ -1,6 +1,6 @@
 #include <Renderer2D.h>
 #include <Texture.h>
-#include <memory>
+
 
 #include "OBB.h"
 #include "GameEntity.h"
@@ -10,7 +10,7 @@ GameEntity::GameEntity() {
 }
 
 GameEntity::GameEntity(aie::Texture * tex) : SpriteNode(tex) {
-	collider = std::unique_ptr<OBB>(new OBB(tex->getWidth(), tex->getHeight()));
+	collider = std::unique_ptr<OBB>(new OBB((float)tex->getWidth(), (float)tex->getHeight()));
 	collider->debug(true);
 	collider->setParent(this);
 }

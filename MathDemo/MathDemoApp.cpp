@@ -5,6 +5,7 @@
 #include "Renderer2D.h"
 #include "GameEntity.h"
 #include "Node.h"
+#include "Vehicle.h"
 #include <Utility.h>
 
 #include <ResourceManager.h>
@@ -42,9 +43,9 @@ void MathDemoApp::update(float deltaTime) {
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
 
-	tank->rotate(degToRad(.05f));
+	tank->rotate(degToRad(.5f));
 
-	float x = rand() % 10 * 0.01f, y = rand() % 4 * 0.01f;
+	float x = rand() % 10 * 0.1f, y = rand() % 4 * 0.1f;
 	tank->translate(Vector2(x, y));
 
 	for (size_t i = 0; i < m_nodes.size(); ++i)
