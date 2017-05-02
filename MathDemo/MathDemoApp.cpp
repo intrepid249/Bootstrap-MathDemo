@@ -25,7 +25,7 @@ bool MathDemoApp::startup() {
 
 	m_textures[TANK_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankBlue.png");
 
-	tank = std::unique_ptr<GameEntity>(new GameEntity(m_textures[TANK_TEX].get()));
+	tank = std::unique_ptr<Vehicle>(new Vehicle(m_textures[TANK_TEX].get()));
 	tank->translate(Vector2(300, 300));
 	tank->debug(true);
 	m_nodes.push_back(tank.get());
@@ -48,8 +48,8 @@ void MathDemoApp::update(float deltaTime) {
 	input->getMouseXY(&mouseX, &mouseY);
 	m_mousePos = Vector2(mouseX, mouseY);
 
-
-	tank->rotate(degToRad(.5f));
+	tank->updateToFaceMouse(m_mousePos);
+	//tank->rotate(degToRad(.5f));
 
 	float x = rand() % 10 * 0.1f, y = rand() % 4 * 0.1f;
 	tank->translate(Vector2(x, y));
@@ -69,8 +69,11 @@ void MathDemoApp::draw() {
 	for (size_t i = 0; i < m_nodes.size(); ++i)
 		m_nodes[i]->render(m_renderer.get());
 
+#if 0
+	//Code for testing collision functions
 	if (tank->getCollider()->contains(m_mousePos))
 		m_renderer->drawCircle(m_mousePos.x, m_mousePos.y, 3);
+#endif
 
 	m_renderer->drawText(m_font.get(), "Press ESC to quit", 0, 0);
 

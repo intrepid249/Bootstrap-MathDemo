@@ -25,8 +25,10 @@ void GameEntity::update(float dt) {
 }
 
 void GameEntity::render(aie::Renderer2D * renderer) {
-	SpriteNode::render(renderer);
-	m_collider->render(renderer);
+	if (m_isDrawn) {
+		SpriteNode::render(renderer);
+		m_collider->render(renderer);
+	}
 }
 
 OBB* GameEntity::getCollider() {

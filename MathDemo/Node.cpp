@@ -33,6 +33,14 @@ void Node::setParent(Node * parent) {
 	m_parent = parent;
 }
 
+void Node::setDrawn(bool flag) {
+	m_isDrawn = flag;
+}
+
+bool Node::isDrawn() {
+	return m_isDrawn;
+}
+
 Matrix3 & Node::getTransform() {
 	return m_local;
 }

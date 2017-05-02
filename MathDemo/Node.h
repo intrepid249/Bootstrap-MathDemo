@@ -18,6 +18,9 @@ public:
 
 	void setParent(Node *parent);
 
+	void setDrawn(bool flag);
+	bool isDrawn();
+
 	Matrix3 &getTransform();
 	Matrix3 calculateGlobalTransform() const;
 
@@ -31,5 +34,6 @@ protected:
 	Node *m_parent = nullptr;
 	Matrix3 m_local;
 	bool m_debugDraw = false;
+	bool m_isDrawn = true;
 };
 

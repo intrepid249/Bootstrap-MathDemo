@@ -31,7 +31,7 @@ protected:
 
 	std::map<eTexID, std::shared_ptr<aie::Texture>> m_textures;
 
-	std::unique_ptr<GameEntity>	tank;
+	std::unique_ptr<Vehicle>	tank;
 	std::vector<Node*>	m_nodes;
 
 	std::unique_ptr<aie::Renderer2D>	m_renderer;

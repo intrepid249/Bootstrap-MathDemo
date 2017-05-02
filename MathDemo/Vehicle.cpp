@@ -6,7 +6,7 @@ Vehicle::Vehicle() {
 	m_moveBW = m_moveFW = m_turnL = m_turnR = false;
 }
 
-Vehicle::Vehicle(aie::Texture * tex) {
+Vehicle::Vehicle(aie::Texture * tex) : GameEntity(tex) {
 
 }
 
@@ -39,9 +39,15 @@ void Vehicle::updateControls(aie::Input * input) {
 }
 
 void Vehicle::updateToFaceMouse(Vector2 & mousePos) {
-
+	Vector2 target = mousePos - getTransform().getTranslation();
+	float radians = atan2f(target.y, target.x);
+	getTransform().setRotateZ(radians);
 }
 
-void Vehicle::update(float dt) {}
+void Vehicle::update(float dt) {
+	GameEntity::update(dt);
+}
 
-void Vehicle::render(aie::Renderer2D * renderer) {}
+void Vehicle::render(aie::Renderer2D * renderer) {
+	GameEntity::render(renderer);
+}
