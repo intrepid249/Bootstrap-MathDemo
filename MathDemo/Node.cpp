@@ -4,7 +4,6 @@
 
 
 Node::Node() {
-	m_debugDraw = false;
 }
 
 
@@ -16,17 +15,13 @@ void Node::update(float dt) {
 
 void Node::render(aie::Renderer2D * renderer) {
 	// Debug render
-	if (m_debugDraw) {
+#ifdef _DEBUG
 		Matrix3 gMat = calculateGlobalTransform();
 		Vector2 pos = gMat.getTranslation();
 		float rot = gMat.getRotationZ();
 
 		renderer->drawBox(pos.x, pos.y, 5, 5, rot);
-	}
-}
-
-void Node::debug(const bool flag) {
-	m_debugDraw = flag;
+#endif // _DEBUG
 }
 
 void Node::setParent(Node * parent) {
@@ -60,6 +55,10 @@ void Node::translate(const Vector2 & pos) {
 void Node::rotate(float radians) {
 	Matrix3 rotation = Matrix3::createRotation(radians);
 	m_local = m_local * rotation;
+}
+
+void Node::setRotate(float radians) {
+	m_local.setRotateZ(radians);
 }
 
 Vector2 Node::getLocPos() {

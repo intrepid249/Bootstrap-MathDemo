@@ -15,7 +15,14 @@ SpriteNode::~SpriteNode() {
 void SpriteNode::render(aie::Renderer2D * renderer) {
 	Matrix3 gMat = calculateGlobalTransform();
 
+	//change this to use drawSprite so we have the option of splitting the child's rotation
 	renderer->drawSpriteTransformed3x3(m_sprite, (float*)gMat, m_size.x, m_size.y, 0, m_origin.x, m_origin.y);
+
+	Node::render(renderer);
+}
+
+void SpriteNode::renderByMatrix(aie::Renderer2D * renderer, float *mat) {
+	renderer->drawSpriteTransformed3x3(m_sprite, (float*)mat, m_size.x, m_size.y, 0, m_origin.x, m_origin.y);
 
 	Node::render(renderer);
 }

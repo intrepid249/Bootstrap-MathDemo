@@ -13,7 +13,7 @@ namespace aie {
 
 class Node;
 class GameEntity;
-class Vehicle;
+class Tank;
 
 class MathDemoApp : public aie::Application {
 public:
@@ -27,16 +27,16 @@ public:
 	virtual void draw();
 
 protected:
-	enum eTexID { TANK_TEX };
+	enum eTexID { TANK_TEX, TANK_TURRET_TEX };
 
 	std::map<eTexID, std::shared_ptr<aie::Texture>> m_textures;
 
-	std::unique_ptr<Vehicle>	tank;
+	std::unique_ptr<Tank>	tank;
 	std::vector<Node*>	m_nodes;
 
 	std::unique_ptr<aie::Renderer2D>	m_renderer;
 	std::unique_ptr<aie::Font>			m_font;
 
 
-	Vector2 m_mousePos, m_cameraPos;
+	Vector2 m_cameraPos;
 };

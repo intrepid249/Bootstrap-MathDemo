@@ -63,6 +63,9 @@
     <ClCompile Include="Vehicle.cpp">
       <Filter>Source Files\Entities\Vehicles</Filter>
     </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Source Files\Entities\Vehicles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathDemoApp.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Vehicle.h">
+      <Filter>Header Files\Entities\Vehicles</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.h">
       <Filter>Header Files\Entities\Vehicles</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,8 +14,6 @@ public:
 	virtual void update(float dt);
 	virtual void render(aie::Renderer2D *renderer);
 
-	void debug(const bool flag);
-
 	void setParent(Node *parent);
 
 	void setDrawn(bool flag);
@@ -26,6 +24,7 @@ public:
 
 	void translate(const Vector2 &translation);
 	void rotate(float radians);
+	void setRotate(float radians);
 
 	Vector2 getLocPos();
 	float getLocRot();
@@ -33,7 +32,6 @@ public:
 protected:
 	Node *m_parent = nullptr;
 	Matrix3 m_local;
-	bool m_debugDraw = false;
 	bool m_isDrawn = true;
 };
 

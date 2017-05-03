@@ -96,6 +96,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="OBB.cpp" />
     <ClCompile Include="SpriteNode.cpp" />
+    <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +108,7 @@
     <ClInclude Include="ResourceManager\ResourceManager.h" />
     <ClInclude Include="settings.h" />
     <ClInclude Include="SpriteNode.h" />
+    <ClInclude Include="Tank.h" />
     <ClInclude Include="Vehicle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

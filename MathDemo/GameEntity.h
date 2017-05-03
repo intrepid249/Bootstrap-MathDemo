@@ -7,7 +7,7 @@ class GameEntity : public SpriteNode {
 public:
 	GameEntity();
 	GameEntity(aie::Texture *tex);
-	~GameEntity();
+	virtual ~GameEntity();
 
 	virtual void update(float dt);
 	virtual void render(aie::Renderer2D *renderer);

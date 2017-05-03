@@ -10,7 +10,8 @@
 #endif
 
 #pragma region Tank
-#define TANK_MOVESPEED 0.3f
+#define TANK_MOVESPEED 115.f
+#define TANK_TURNSPEED 2.5f
 #pragma endregion
 
 #pragma region UTILS

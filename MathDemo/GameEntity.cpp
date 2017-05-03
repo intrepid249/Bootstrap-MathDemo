@@ -11,7 +11,6 @@ GameEntity::GameEntity() {
 
 GameEntity::GameEntity(aie::Texture * tex) : SpriteNode(tex) {
 	m_collider = std::unique_ptr<OBB>(new OBB((float)tex->getWidth(), (float)tex->getHeight()));
-	m_collider->debug(true);
 	m_collider->setParent(this);
 }
 

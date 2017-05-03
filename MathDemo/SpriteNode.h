@@ -11,6 +11,7 @@ public:
 	~SpriteNode();
 
 	virtual void render(aie::Renderer2D *renderer);
+	virtual void renderByMatrix(aie::Renderer2D * renderer, float * mat);
 
 	void setSize(const Vector2 &size);
 	Vector2& getSize();
