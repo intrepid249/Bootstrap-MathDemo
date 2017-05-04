@@ -30,6 +30,25 @@ void GameEntity::render(aie::Renderer2D * renderer) {
 	}
 }
 
+void GameEntity::renderStaticRotation(aie::Renderer2D * renderer) {
+	Matrix3 gMat = calculateGlobalTransform();
+	Vector2 scale = Vector2(gMat[0].magnitude(), gMat[1].magnitude());
+	Vector2 pos = gMat.getTranslation();
+	float rot = getStaticRotation();
+
+	renderer->drawSprite(m_sprite, pos.x, pos.y, scale.x * m_size.x, scale.x * m_size.y, rot, 0, m_origin.x, m_origin.y);
+
+	Node::render(renderer);
+}
+
 OBB* GameEntity::getCollider() {
 	return m_collider.get();
+}
+
+void GameEntity::setStaticRotation(float angle) {
+	m_staticRotation = angle;
+}
+
+float GameEntity::getStaticRotation() {
+	return m_staticRotation;
 }

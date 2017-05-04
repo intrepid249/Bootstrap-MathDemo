@@ -10,8 +10,8 @@ public:
 	SpriteNode(aie::Texture *m_tex);
 	~SpriteNode();
 
-	virtual void render(aie::Renderer2D *renderer);
-	virtual void renderByMatrix(aie::Renderer2D * renderer, float * mat);
+	virtual void renderStaticRotation(aie::Renderer2D *renderer);
+	virtual void render(aie::Renderer2D * renderer);
 
 	void setSize(const Vector2 &size);
 	Vector2& getSize();

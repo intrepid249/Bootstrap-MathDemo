@@ -12,17 +12,21 @@ SpriteNode::SpriteNode(aie::Texture *m_tex) : m_sprite(m_tex), m_size(Vector2((f
 SpriteNode::~SpriteNode() {
 }
 
-void SpriteNode::render(aie::Renderer2D * renderer) {
+void SpriteNode::renderStaticRotation(aie::Renderer2D * renderer) {
 	Matrix3 gMat = calculateGlobalTransform();
+	Vector2 scale = Vector2(gMat[0].magnitude(), gMat[1].magnitude());
+	Vector2 pos = gMat.getTranslation();
+	float rot = gMat.getRotationZ();
 
-	//change this to use drawSprite so we have the option of splitting the child's rotation
-	renderer->drawSpriteTransformed3x3(m_sprite, (float*)gMat, m_size.x, m_size.y, 0, m_origin.x, m_origin.y);
+	renderer->drawSprite(m_sprite, pos.x, pos.y, scale.x * m_size.x, scale.x * m_size.y, rot, 0, m_origin.x, m_origin.y);
 
 	Node::render(renderer);
 }
 
-void SpriteNode::renderByMatrix(aie::Renderer2D * renderer, float *mat) {
-	renderer->drawSpriteTransformed3x3(m_sprite, (float*)mat, m_size.x, m_size.y, 0, m_origin.x, m_origin.y);
+void SpriteNode::render(aie::Renderer2D * renderer) {
+	Matrix3 gMat = calculateGlobalTransform();
+
+	renderer->drawSpriteTransformed3x3(m_sprite, (float*)gMat, m_size.x, m_size.y, 0, m_origin.x, m_origin.y);
 
 	Node::render(renderer);
 }

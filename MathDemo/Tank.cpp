@@ -25,15 +25,15 @@ void Tank::update(float dt) {
 		Vector2 mousePos = Vector2((float)mouseX, (float)mouseY);
 
 		mousePos += *m_cameraPos;
+		mousePos -= getTransform().getTranslation();
 
 		///Turret
 		// Rotate the turret to face the mouse
-		faceAtPoint(mousePos, m_turret.get());
+		m_turret->setStaticRotation(atan2f(mousePos.y, mousePos.x));
 	}
 }
 
 void Tank::render(aie::Renderer2D * renderer) {
 	Vehicle::render(renderer);
-	m_turret->renderByMatrix(renderer, (float*)m_turret->getTransform());
-
+	m_turret->renderStaticRotation(renderer);
 }
