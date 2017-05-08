@@ -62,11 +62,11 @@ void Vehicle::update(float dt) {
 		// update the position so we move along the 'heading' vector
 		float rot = degToRad(getLocRot());
 		if (m_moveFW) {
-			m_moveSpeed = Vector2(cosf(rot) * TANK_MOVESPEED, sinf(rot) * TANK_MOVESPEED);
+			m_moveSpeed = Vector2<float>(cosf(rot) * TANK_MOVESPEED, sinf(rot) * TANK_MOVESPEED);
 		} else if (m_moveBW) {
-			m_moveSpeed = Vector2(-cosf(rot) * TANK_MOVESPEED, -sinf(rot) * TANK_MOVESPEED);
+			m_moveSpeed = Vector2<float>(-cosf(rot) * TANK_MOVESPEED, -sinf(rot) * TANK_MOVESPEED);
 		} else
-			m_moveSpeed = Vector2(0, 0);
+			m_moveSpeed = Vector2<float>(0, 0);
 
 		///Rotation controls
 		// update the rotation to turn our heading vector
@@ -77,7 +77,7 @@ void Vehicle::update(float dt) {
 		else
 			m_turnSpeed = 0;
 
-		Vector2 cPos = getTransform().getTranslation();
+		Vector2<float> cPos = getTransform().getTranslation();
 		cPos.x -= SCREENWIDTH / 2;
 		cPos.y -= SCREENHEIGHT / 2;
 
@@ -97,13 +97,13 @@ void Vehicle::render(aie::Renderer2D * renderer) {
 		renderer->setCameraPos(m_cameraPos->x, m_cameraPos->y);
 }
 
-void Vehicle::faceAtPoint(Vector2 & point, GameEntity *obj) {
-	Vector2 target = point - obj->calculateGlobalTransform().getTranslation();
+void Vehicle::faceAtPoint(Vector2<float> & point, GameEntity *obj) {
+	Vector2<float> target = point - obj->calculateGlobalTransform().getTranslation();
 	float radians = atan2f(target.y, target.x);
 	obj->getTransform().setRotateZ(radians);
 }
 
-void Vehicle::setCamera(Vector2 * camPos) {
+void Vehicle::setCamera(Vector2<float> * camPos) {
 	m_cameraPos = camPos;
 }
 

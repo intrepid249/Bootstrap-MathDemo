@@ -7,7 +7,7 @@ Tank::Tank() {}
 
 Tank::Tank(aie::Texture * baseTex, aie::Texture * turretTex) : Vehicle(baseTex) {
 	m_turret = std::unique_ptr<GameEntity>(new GameEntity(turretTex));
-	m_turret->setOrigin(Vector2(0.0f, 0.5f));
+	m_turret->setOrigin(Vector2<float>(0.0f, 0.5f));
 	m_turret->setParent(this);
 }
 
@@ -22,7 +22,7 @@ void Tank::update(float dt) {
 		// Calculate the mouse position on the screen
 		int mouseX, mouseY;
 		input->getMouseXY(&mouseX, &mouseY);
-		Vector2 mousePos = Vector2((float)mouseX, (float)mouseY);
+		Vector2<float> mousePos = Vector2<float>((float)mouseX, (float)mouseY);
 
 		mousePos += *m_cameraPos;
 		mousePos -= getTransform().getTranslation();

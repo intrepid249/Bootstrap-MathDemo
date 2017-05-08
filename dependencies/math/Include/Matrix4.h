@@ -1,58 +1,57 @@
 #pragma once
-
+#include "DLL.h"
 #include <Vector4.h>
+#include <Vector3.h>
 
-class Vector3;
-
-class Matrix4 {
+template <class T>
+class LIB_API Matrix4 {
 public:
 	Matrix4();
-	~Matrix4();
-	Matrix4(float *a_ptr);
-	Matrix4(float a_x1, float a_x2, float a_x3, float a_x4,
-		float a_y1, float a_y2, float a_y3, float a_y4,
-		float a_z1, float a_z2, float a_z3, float a_z4,
-		float a_w1, float a_w2, float a_w3, float a_w4);
+	Matrix4(T *a_ptr);
+	Matrix4(T a_x1, T a_x2, T a_x3, T a_x4,
+		T a_y1, T a_y2, T a_y3, T a_y4,
+		T a_z1, T a_z2, T a_z3, T a_z4,
+		T a_w1, T a_w2, T a_w3, T a_w4);
+	Matrix4(const Matrix4& rhs);
+	~Matrix4() = default;
 
 #pragma region Static Methods
 	static Matrix4 createIdentity();
-	static Matrix4 createTranslation(float a_x, float a_y, float a_z, float a_w = 1);
-	static Matrix4 createTranslation(const Vector3 &a_vec, float a_w = 1);
-	static Matrix4 createRotation(float a_rot);
-	static Matrix4 createScale(float a_xScale, float a_yScale, float z_scale);
+	static Matrix4 createTranslation(T a_x, T a_y, T a_z, T a_w = 1);
+	static Matrix4 createTranslation(const Vector3<T> &a_vec, T a_w = 1);
+	static Matrix4 createRotation(T a_rot);
+	static Matrix4 createScale(T a_xScale, T a_yScale, T z_scale);
 #pragma endregion
 
 
 #pragma region Operators
-	explicit operator float* () { return m; }
-	Vector4 operator * (const Vector4 &a_rhs) const;
+	explicit operator T* ();
+	Vector4<T> operator * (const Vector4<T> &a_rhs) const;
 	Matrix4  operator *(const Matrix4 &a_rhs) const;
+	Vector4<T> &operator[] (unsigned int a_index);
+	Matrix4 operator =(const Matrix4& rhs);
 #pragma endregion
 
-	void set(float *a_ptr);
-	void set(float a_x1, float a_x2, float a_x3, float a_x4,
-		float a_y1, float a_y2, float a_y3, float a_y4,
-		float a_z1, float a_z2, float a_z3, float a_z4,
-		float a_w1, float a_w2, float a_w3, float a_w4);
+	void set(T *a_ptr);
+	void set(T a_x1, T a_x2, T a_x3, T a_x4,
+		T a_y1, T a_y2, T a_y3, T a_y4,
+		T a_z1, T a_z2, T a_z3, T a_z4,
+		T a_w1, T a_w2, T a_w3, T a_w4);
 
-	void Matrix4::setRotateX(float a_rot);
-	void Matrix4::setRotateY(float a_rot);
-	void Matrix4::setRotateZ(float a_rot);
-	float getRotationZ();
-
-	Vector4 &operator[] (int a_index) {
-		return v[a_index];
-	}
+	void setRotateX(T a_rot);
+	void setRotateY(T a_rot);
+	void setRotateZ(T a_rot);
+	T getRotationZ();
 
 	union {
 		struct {
-			float x1; float x2; float x3; float x4;
-			float y1; float y2; float y3; float y4;
-			float z1; float z2; float z3; float z4;
-			float w1; float w2; float w3; float w4;
+			T x1; T x2; T x3; T x4;
+			T y1; T y2; T y3; T y4;
+			T z1; T z2; T z3; T z4;
+			T w1; T w2; T w3; T w4;
 		};
-		struct { float m[16]; };
-		struct { float m_floats[4][4]; };
-		struct { Vector4 v[4]; };
+		struct { T m[16]; };
+		struct { T m_floats[4][4]; };
+		struct { Vector4<T> v[4]; };
 	};
 };

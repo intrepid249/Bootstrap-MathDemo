@@ -30,7 +30,7 @@ bool MathDemoApp::startup() {
 	m_textures[TANK_TURRET_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/barrelBlue.png");
 
 	tank = std::unique_ptr<Tank>(new Tank(m_textures[TANK_TEX].get(), m_textures[TANK_TURRET_TEX].get()));
-	tank->translate(Vector2(300, 300));
+	tank->translate(Vector2<float>(300, 300));
 	tank->setUserControlled(true);
 	tank->setCamera(&m_cameraPos);
 	tank->setControls(aie::INPUT_KEY_W, aie::INPUT_KEY_S, aie::INPUT_KEY_A, aie::INPUT_KEY_D);

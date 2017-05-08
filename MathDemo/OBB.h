@@ -11,14 +11,14 @@ public:
 	virtual void render(aie::Renderer2D *renderer);
 	void updatePointsByMatrix(float *worldMat);
 
-	bool contains(Vector2 &point);
+	bool contains(Vector2<float> &point);
 	//bool intersects(line);
 	bool collides(OBB &rhs);
 
 protected:
-	Vector2 m_size;
+	Vector2<float> m_size;
 
 	// Store the points clockwise from topleft
 	// {topLeft, topRight, bottomRight, bottomLeft}
-	std::vector<Vector2> m_points;
+	std::vector<Vector2<float>> m_points;
 };

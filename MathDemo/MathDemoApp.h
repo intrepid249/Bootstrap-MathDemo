@@ -38,5 +38,5 @@ protected:
 	std::unique_ptr<aie::Font>			m_font;
 
 
-	Vector2 m_cameraPos;
+	Vector2<float> m_cameraPos;
 };

@@ -1,7 +1,6 @@
 #pragma once
 #include <Matrix3.h>
-
-class Vector2;
+#include <Vector2.h>
 namespace aie {
 	class Renderer2D;
 }
@@ -19,19 +18,19 @@ public:
 	void setDrawn(bool flag);
 	bool isDrawn();
 
-	Matrix3 &getTransform();
-	Matrix3 calculateGlobalTransform() const;
+	Matrix3<float> &getTransform();
+	Matrix3<float> calculateGlobalTransform() const;
 
-	void translate(const Vector2 &translation);
+	void translate(const Vector2<float> &translation);
 	void rotate(float radians);
 	void setRotate(float radians);
 
-	Vector2 getLocPos();
+	Vector2<float> getLocPos();
 	float getLocRot();
 
 protected:
 	Node *m_parent = nullptr;
-	Matrix3 m_local;
+	Matrix3<float> m_local;
 	bool m_isDrawn = true;
 };
 

@@ -1,70 +1,73 @@
 #pragma once
+#include "DLL.h"
 #include <Vector3.h>
 #include <Vector2.h>
 
-
-class Matrix3 {
+template <class T>
+class LIB_API Matrix3 {
 public:
 	Matrix3();
-	Matrix3(float *a_ptr);
-	Matrix3(float a_x1, float a_x2, float a_x3,
-		float a_y1, float a_y2, float a_y3,
-		float a_z1, float a_z2, float a_z3);
+	Matrix3(T *a_ptr);
+	Matrix3(T a_x1, T a_x2, T a_x3,
+		T a_y1, T a_y2, T a_y3,
+		T a_z1, T a_z2, T a_z3);
+	Matrix3(const Matrix3& rhs);
+	~Matrix3() = default;
 
 #pragma region Static Methods
 	static Matrix3 createIdentity();
-	static Matrix3 createTranslation(float a_x, float a_y, float a_z = 1);
-	static Matrix3 createTranslation(const Vector3 &a_vec);
-	static Matrix3 createTranslation(const Vector2 &a_vec, float a_z = 1);
-	static Matrix3 createRotation(float a_rot);
-	static Matrix3 createScale(float a_xScale, float a_yScale);
+	static Matrix3 createTranslation(T a_x, T a_y, T a_z = 1);
+	static Matrix3 createTranslation(const Vector3<T> &a_vec);
+	static Matrix3 createTranslation(const Vector2<T> &a_vec, T a_z = 1);
+	static Matrix3 createRotation(T a_rot);
+	static Matrix3 createScale(T a_xScale, T a_yScale);
 #pragma endregion
 
 #pragma region Operators
-	explicit operator float* () { return m; }
+	explicit operator T* () { return m; }
 
-	Vector3 &operator[] (int a_index);
+	Vector3<T> &operator[] (unsigned int a_index);
 
 	Matrix3  operator *(const Matrix3 &a_rhs) const;
 	Matrix3 &operator *=(const Matrix3 &a_rhs);
 
 	Matrix3 &operator =(const Matrix3 & a_rhs);
-	Vector3 operator * (const Vector3 &a_rhs) const;
-	Vector2 operator * (const Vector2 &a_rhs) const;
+	Vector3<T> operator * (const Vector3<T> &a_rhs) const;
+	Vector2<T> operator * (const Vector2<T> &a_rhs) const;
 #pragma endregion
 
 #pragma region Class Methods
 	// rebuild the matrix
-	void set(float a_x1, float a_x2, float a_x3,
-		float a_y1, float a_y2, float a_y3,
-		float a_z1, float a_z2, float a_z3);
+	void set(T a_x1, T a_x2, T a_x3,
+		T a_y1, T a_y2, T a_y3,
+		T a_z1, T a_z2, T a_z3);
 
-	// rebuild the matrix - expects pointer to array of 9 floats
-	void set(float *a_ptr);
+	// rebuild the matrix - expects pointer to array of 9 Ts
+	void set(T *a_ptr);
 
 	// only set the translation component of the matrix
-	void setTranslation(float a_x, float a_y);
+	void setTranslation(T a_x, T a_y);
 	// only set the translation component of the matrix
-	void setTranslation(const Vector2 &a_vec);
+	void setTranslation(const Vector2<T> &a_vec);
 
-	void setRotateX(float a_rot);
-	void setRotateY(float a_rot);
-	void setRotateZ(float a_rot);
-	float getRotationZ();
+	void setRotateX(T a_rot);
+	void setRotateY(T a_rot);
+	void setRotateZ(T a_rot);
+	T getRotationZ();
 
 	// add x and y onto the translation component of the matrix
-	void translate(float a_x, float a_y);
+	void translate(T a_x, T a_y);
 	// add x and y onto the translation component of the matrix
-	void translate(const Vector2 &a_vec);
+	void translate(const Vector2<T> &a_vec);
 
 	// returns the translation component of the matrix
-	Vector2 getTranslation() const;
+	Vector2<T> getTranslation() const;
 #pragma endregion
 
 	union {
-		struct { float x1; float x2; float x3; float y1; float y2; float y3; float z1; float z2; float z3; };
-		struct { float m[9]; };
-		struct { float m_floats[3][3]; };
-		struct { Vector3 v[3]; };
+		struct { T x1; T x2; T x3; T y1; T y2; T y3; T z1; T z2; T z3; };
+		struct { T m[9]; };
+		struct { T m_floats[3][3]; };
+		struct { Vector3<T> v[3]; };
 	};
 };

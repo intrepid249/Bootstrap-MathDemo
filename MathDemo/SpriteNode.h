@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+
 namespace aie {
 	class Texture;
 }
@@ -13,15 +14,15 @@ public:
 	virtual void renderStaticRotation(aie::Renderer2D *renderer);
 	virtual void render(aie::Renderer2D * renderer);
 
-	void setSize(const Vector2 &size);
-	Vector2& getSize();
+	void setSize(const Vector2<float> &size);
+	Vector2<float>& getSize();
 
-	void setOrigin(const Vector2 &origin);
-	Vector2& getOrigin();
+	void setOrigin(const Vector2<float> &origin);
+	Vector2<float>& getOrigin();
 
 protected:
 	aie::Texture *m_sprite;
-	Vector2 m_size;
-	Vector2 m_origin = Vector2(0.5f, 0.5f);
+	Vector2<float> m_size;
+	Vector2<float> m_origin = Vector2<float>(0.5f, 0.5f);
 };
 

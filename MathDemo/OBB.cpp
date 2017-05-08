@@ -4,10 +4,10 @@
 
 OBB::OBB() {}
 
-OBB::OBB(float width, float height) : m_size(Vector2(width, height)) 
+OBB::OBB(float width, float height) : m_size(Vector2<float>(width, height)) 
 {
 	for (int i = 0; i < 4; i++)
-		m_points.push_back(Vector2());
+		m_points.push_back(Vector2<float>());
 }
 
 OBB::~OBB() {}
@@ -16,7 +16,7 @@ void OBB::render(aie::Renderer2D *renderer) {
 #ifdef _DEBUG
 		renderer->setRenderColour(0xff0000ff);
 		for (size_t i = 0; i < m_points.size(); ++i) {
-			Vector2 p = m_points[i];
+			Vector2<float> p = m_points[i];
 			renderer->drawBox(p.x, p.y, 3, 3);
 		}
 		renderer->drawLine(m_points[0].x, m_points[0].y, m_points[1].x, m_points[1].y);
@@ -42,26 +42,26 @@ void OBB::updatePointsByMatrix(float  *worldMat) {
 	x = tlX; y = tlY;
 	tlX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	tlY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
-	m_points[0] = Vector2(tlX, tlY);
+	m_points[0] = Vector2<float>(tlX, tlY);
 
 	x = trX; y = trY;
 	trX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	trY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
-	m_points[1] = Vector2(trX, trY);
+	m_points[1] = Vector2<float>(trX, trY);
 
 	x = brX; y = brY;
 	brX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	brY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
-	m_points[2] = Vector2(brX, brY);
+	m_points[2] = Vector2<float>(brX, brY);
 
 	x = blX; y = blY;
 	blX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	blY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
-	m_points[3] = Vector2(blX, blY);
+	m_points[3] = Vector2<float>(blX, blY);
 }
 
-bool OBB::contains(Vector2 & point) {
-	Vector2 pos = m_parent->getLocPos();
+bool OBB::contains(Vector2<float> & point) {
+	Vector2<float> pos = m_parent->getLocPos();
 
 	if (point.x < pos.x-m_size.x / 2 || point.x > pos.x+m_size.x / 2) return false;
 	if (point.y < pos.y-m_size.y / 2 || point.y > pos.y+m_size.y / 2) return false;

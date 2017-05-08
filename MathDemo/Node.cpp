@@ -1,7 +1,5 @@
 #include "Node.h"
 #include <Renderer2D.h>
-#include <Vector2.h>
-
 
 Node::Node() {
 }
@@ -16,8 +14,8 @@ void Node::update(float dt) {
 void Node::render(aie::Renderer2D * renderer) {
 	// Debug render
 #ifdef _DEBUG
-		Matrix3 gMat = calculateGlobalTransform();
-		Vector2 pos = gMat.getTranslation();
+		Matrix3<float> gMat = calculateGlobalTransform();
+		Vector2<float> pos = gMat.getTranslation();
 		float rot = gMat.getRotationZ();
 
 		renderer->drawBox(pos.x, pos.y, 5, 5, rot);
@@ -36,24 +34,24 @@ bool Node::isDrawn() {
 	return m_isDrawn;
 }
 
-Matrix3 & Node::getTransform() {
+Matrix3<float> & Node::getTransform() {
 	return m_local;
 }
 
-Matrix3 Node::calculateGlobalTransform() const {
-	if (m_parent == nullptr) 
+Matrix3<float> Node::calculateGlobalTransform() const {
+	if (m_parent == nullptr)
 		return m_local;
 
 	return m_parent->calculateGlobalTransform() * m_local;
 }
 
-void Node::translate(const Vector2 & pos) {
-	Matrix3 translation = Matrix3::createTranslation(pos);
+void Node::translate(const Vector2<float> & pos) {
+	Matrix3<float> translation = Matrix3<float>::createTranslation(pos);
 	m_local = m_local * translation;
 }
 
 void Node::rotate(float radians) {
-	Matrix3 rotation = Matrix3::createRotation(radians);
+	Matrix3<float> rotation = Matrix3<float>::createRotation(radians);
 	m_local = m_local * rotation;
 }
 
@@ -61,7 +59,7 @@ void Node::setRotate(float radians) {
 	m_local.setRotateZ(radians);
 }
 
-Vector2 Node::getLocPos() {
+Vector2<float> Node::getLocPos() {
 	return m_local.getTranslation();
 }
 
