@@ -75,6 +75,9 @@
     <ClCompile Include="Creature.cpp">
       <Filter>Source Files\Creature</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathDemoApp.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="Creature.h">
       <Filter>Header Files\Entities\Creature</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

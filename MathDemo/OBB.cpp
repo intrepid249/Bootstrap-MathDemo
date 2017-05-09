@@ -13,7 +13,7 @@ OBB::OBB(float width, float height) : m_size(Vector2<float>(width, height))
 OBB::~OBB() {}
 
 void OBB::render(aie::Renderer2D *renderer) {
-//#ifdef _DEBUG
+#ifdef _DEBUG
 		renderer->setRenderColour(0xff0000ff);
 		for (size_t i = 0; i < m_points.size(); ++i) {
 			Vector2<float> p = m_points[i];
@@ -25,7 +25,7 @@ void OBB::render(aie::Renderer2D *renderer) {
 		renderer->drawLine(m_points[3].x, m_points[3].y, m_points[0].x, m_points[0].y);
 
 		renderer->setRenderColour(0xffffffff);
-//#endif // _DEBUG
+#endif // _DEBUG
 }
 
 void OBB::updatePointsByMatrix(float  *worldMat) {

@@ -10,10 +10,12 @@
 
 Vehicle::Vehicle() {
 	m_moveBW = m_moveFW = m_turnL = m_turnR = false;
+	m_userControlled = false;
 }
 
-Vehicle::Vehicle(aie::Texture * tex) : GameEntity(tex) {
+Vehicle::Vehicle(aie::Texture * tex) :  GameEntity(tex) {
 	m_moveBW = m_moveFW = m_turnL = m_turnR = false;
+	m_userControlled = false;
 }
 
 
@@ -21,33 +23,33 @@ Vehicle::~Vehicle() {
 }
 
 /*
-store the control codes for the vehicle's movement/behaviour
+Store the control codes for the vehicle's movement/behaviour
 */
-void Vehicle::setControls(aie::EInputCodes fwKey, aie::EInputCodes bwKey, aie::EInputCodes lKey, aie::EInputCodes rKey) {
-	m_fwKey = fwKey, m_bwKey = bwKey, m_lKey = lKey, m_rKey = rKey;
+void Vehicle::setControls(std::map<eControlID, aie::EInputCodes> controlScheme) {
+	m_controls = controlScheme;
 }
 
 /*
-this updates the control flags to tell the object to move or stop moving
+This updates the control flags to tell the object to move or stop moving
 when we press or release a key
 */
 void Vehicle::updateControls(aie::Input * input) {
-	if (input->isKeyDown(m_fwKey))
+	if (input->isKeyDown(m_controls[FORWARD]))
 		m_moveFW = true;
-	if (input->isKeyDown(m_bwKey))
+	if (input->isKeyDown(m_controls[BACKWARD]))
 		m_moveBW = true;
-	if (input->isKeyDown(m_lKey))
+	if (input->isKeyDown(m_controls[LEFT]))
 		m_turnL = true;
-	if (input->isKeyDown(m_rKey))
+	if (input->isKeyDown(m_controls[RIGHT]))
 		m_turnR = true;
 
-	if (input->isKeyUp(m_fwKey))
+	if (input->isKeyUp(m_controls[FORWARD]))
 		m_moveFW = false;
-	if (input->isKeyUp(m_bwKey))
+	if (input->isKeyUp(m_controls[BACKWARD]))
 		m_moveBW = false;
-	if (input->isKeyUp(m_lKey))
+	if (input->isKeyUp(m_controls[LEFT]))
 		m_turnL = false;
-	if (input->isKeyUp(m_rKey))
+	if (input->isKeyUp(m_controls[RIGHT]))
 		m_turnR = false;
 }
 
@@ -78,11 +80,12 @@ void Vehicle::update(float dt) {
 		else
 			m_turnSpeed = 0;
 
-		Vector2<float> cPos = getTransform().getTranslation();
-		cPos.x -= SCREENWIDTH / 2;
-		cPos.y -= SCREENHEIGHT / 2;
+		// Translate the camera position
+		Vector2<float> camPos = getTransform().getTranslation();
+		camPos.x -= SCREENWIDTH / 2;
+		camPos.y -= SCREENHEIGHT / 2;
 
-		*m_cameraPos = cPos;
+		*m_cameraPos = camPos;
 
 
 		// Perform calculations in the order scale * rotation * translation

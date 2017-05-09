@@ -12,17 +12,6 @@ SpriteNode::SpriteNode(aie::Texture *m_tex) : m_sprite(m_tex), m_size(Vector2<fl
 SpriteNode::~SpriteNode() {
 }
 
-void SpriteNode::renderStaticRotation(aie::Renderer2D * renderer) {
-	Matrix3<float> gMat = calculateGlobalTransform();
-	Vector2<float> scale = Vector2<float>(gMat[0].magnitude(), gMat[1].magnitude());
-	Vector2<float> pos = gMat.getTranslation();
-	float rot = gMat.getRotationZ();
-
-	renderer->drawSprite(m_sprite, pos.x, pos.y, scale.x * m_size.x, scale.x * m_size.y, rot, 0, m_origin.x, m_origin.y);
-
-	Node::render(renderer);
-}
-
 void SpriteNode::render(aie::Renderer2D * renderer) {
 	Matrix3<float> gMat = calculateGlobalTransform();
 

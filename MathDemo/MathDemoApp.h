@@ -5,6 +5,9 @@
 #include <memory>
 #include <Texture.h>
 #include <Vector2.h>
+#include "settings.h"
+#include <Input.h>
+#include "SpriteNode.h"
 
 namespace aie {
 	class Font;
@@ -26,17 +29,28 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+private:
+	/**Initialise the control schemes*/
+	void initControlLayouts();
+
 protected:
-	enum eTexID { TANK_TEX, TANK_TURRET_TEX };
+	enum eTexID { TANK_TEX, TANK_TURRET_TEX, TANK_BULLET_TEX, RETICLE_TEX };
+	enum eControlSchemes { TANK_CONTROLS = 0xCAFE, PLAYER_CONTROLS }; // some code we can 'sink our teeth' into
 
 	std::map<eTexID, std::shared_ptr<aie::Texture>> m_textures;
 
-	std::unique_ptr<Tank>	tank;
-	std::vector<Node*>	m_nodes;
+	std::map<eControlSchemes, std::map<eControlID, aie::EInputCodes>> controlLayouts;
+
+	std::unique_ptr<SpriteNode> m_reticle;
+	std::unique_ptr<Tank>	tank;	// Used to test movement
+	std::vector<Node*>	m_nodes;	// The list of all the Nodes in the worldspace
+
+	Node* worldOrigin;	// Used to keep track of the world's origin coordinate
 
 	std::unique_ptr<aie::Renderer2D>	m_renderer;
 	std::unique_ptr<aie::Font>			m_font;
 
 
 	Vector2<float> m_cameraPos;
+	//OBB m_northBounds, m_southBounds, m_eastBounds, m_westBounds;
 };

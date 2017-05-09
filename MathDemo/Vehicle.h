@@ -2,6 +2,8 @@
 #include "GameEntity.h"
 #include <Input.h>
 #include <Vector2.h>
+#include <map>
+#include "settings.h"
 
 class Vehicle : public GameEntity {
 public:
@@ -9,7 +11,7 @@ public:
 	Vehicle(aie::Texture *tex);
 	virtual ~Vehicle();
 
-	virtual void setControls(aie::EInputCodes fwKey, aie::EInputCodes bwKey, aie::EInputCodes lKey, aie::EInputCodes rKey);
+	virtual void setControls(std::map<eControlID, aie::EInputCodes> controlScheme);
 	virtual void updateControls(aie::Input *input);
 	virtual void update(float dt);
 
@@ -22,12 +24,12 @@ public:
 	virtual bool isUserControlled();
 
 protected:
-	aie::EInputCodes m_fwKey, m_bwKey, m_lKey, m_rKey;
+	std::map<eControlID, aie::EInputCodes> m_controls;
 	bool m_moveFW, m_moveBW, m_turnL, m_turnR;
 	Vector2<float> m_moveSpeed;
 	float m_turnSpeed;
 	
 	Vector2<float> *m_cameraPos;
 
-	bool m_userControlled = false;
+	bool m_userControlled;
 };

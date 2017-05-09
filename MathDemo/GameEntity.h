@@ -9,16 +9,14 @@ public:
 	GameEntity(aie::Texture *tex);
 	virtual ~GameEntity();
 
+	/**Overload the parent's update function*/
 	virtual void update(float dt);
+	/**Overload the parent's render function*/
 	virtual void render(aie::Renderer2D *renderer);
-	virtual void renderStaticRotation(aie::Renderer2D *renderer);
 
+	// Get a pointer to the collider box
 	OBB* getCollider();
-
-	void setStaticRotation(float angle);
-	float getStaticRotation();
 
 protected:
 	std::unique_ptr<OBB> m_collider;
-	float m_staticRotation = 0;
 };

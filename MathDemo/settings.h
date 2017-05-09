@@ -9,9 +9,19 @@
 #define FULLSCREEN false
 #endif
 
-#pragma region Tank
-#define TANK_MOVESPEED 115.f
-#define TANK_TURNSPEED 2.5f
+#pragma region Vehicles
+enum eControlID { FORWARD, BACKWARD, LEFT, RIGHT, SHOOT };
+
+	#pragma region Tank
+	#define TANK_MOVESPEED 115.f
+	#define TANK_TURNSPEED 2.5f
+	#define TANK_SHOTDELAY 0.3f
+	#pragma endregion
+#pragma endregion
+
+#pragma region Weapons
+	#define BULLET_SPEED 300.f
+	#define BULLET_LIFETIME 5
 #pragma endregion
 
 #pragma region UTILS
