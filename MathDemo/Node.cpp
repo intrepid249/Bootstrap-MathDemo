@@ -45,6 +45,11 @@ Matrix3<float> Node::calculateGlobalTransform() const {
 	return m_parent->calculateGlobalTransform() * m_local;
 }
 
+void Node::scale(const Vector2<float> &size) {
+	Matrix3<float> scale = Matrix3<float>::createScale(size.x, size.y);
+	m_local = m_local * scale;
+}
+
 void Node::translate(const Vector2<float> & pos) {
 	Matrix3<float> translation = Matrix3<float>::createTranslation(pos);
 	m_local = m_local * translation;

@@ -11,9 +11,16 @@ public:
 	virtual void render(aie::Renderer2D *renderer);
 	void updatePointsByMatrix(float *worldMat);
 
+
+	Vector2<float> averagePoint();
+
+	// Check if a point is within the bounding region
 	bool contains(Vector2<float> &point);
-	//bool intersects(line);
+	// Check if a line intersects the collider box
+	bool intersects(/*line*/) {}
+	// Check if we collide with another collider box
 	bool collides(OBB &rhs);
+
 
 protected:
 	Vector2<float> m_size;

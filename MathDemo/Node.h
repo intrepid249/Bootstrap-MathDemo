@@ -21,6 +21,7 @@ public:
 	Matrix3<float> &getTransform();
 	Matrix3<float> calculateGlobalTransform() const;
 
+	void scale(const Vector2<float>& size);
 	void translate(const Vector2<float> &translation);
 	void rotate(float radians);
 	void setRotate(float radians);

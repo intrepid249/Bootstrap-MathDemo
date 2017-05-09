@@ -61,6 +61,7 @@ void Vehicle::update(float dt) {
 		///Movement controls
 		// update the position so we move along the 'heading' vector
 		float rot = degToRad(getLocRot());
+
 		if (m_moveFW) {
 			m_moveSpeed = Vector2<float>(cosf(rot) * TANK_MOVESPEED, sinf(rot) * TANK_MOVESPEED);
 		} else if (m_moveBW) {
@@ -84,7 +85,7 @@ void Vehicle::update(float dt) {
 		*m_cameraPos = cPos;
 
 
-		// Perform calculations in the order scale->rotation->translation
+		// Perform calculations in the order scale * rotation * translation
 		rotate(m_turnSpeed * dt);
 		translate(m_moveSpeed * dt);
 	}
