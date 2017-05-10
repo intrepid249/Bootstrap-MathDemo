@@ -43,7 +43,7 @@
     <Filter Include="Header Files\Entities\Creature">
       <UniqueIdentifier>{7b85e4e7-c46d-45ed-9f9f-36046cbdf49f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Creature">
+    <Filter Include="Source Files\Entities\Creature">
       <UniqueIdentifier>{24399d64-3fba-43d2-aad6-491a21c90a18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -73,10 +73,10 @@
       <Filter>Source Files\Entities\Vehicles</Filter>
     </ClCompile>
     <ClCompile Include="Creature.cpp">
-      <Filter>Source Files\Creature</Filter>
+      <Filter>Source Files\Entities\Creature</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +114,7 @@
       <Filter>Header Files\Entities\Creature</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

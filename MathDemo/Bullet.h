@@ -10,7 +10,11 @@ public:
 
 	virtual void update(float dt);
 
+	void setMoveSpeed(float speed);
+	void setLifetime(float lifespan);
+
 protected:
 	float m_lifetime;
+	float m_moveSpeed;
 };
 

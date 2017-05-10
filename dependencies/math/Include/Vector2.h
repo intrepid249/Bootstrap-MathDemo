@@ -28,6 +28,8 @@ public:
 	Vector2& operator += (const Vector2& a_rhs);							// V2 += V2 
 	Vector2& operator -= (const Vector2& a_rhs);							// V2 -= V2
 
+	Vector2& operator * (const Vector2& rhs);
+
 	Vector2 operator * (T a_scalar) const;									// V2 * f
 	friend Vector2 operator * (T a_scalar, const Vector2& a_rhs) {
 		return a_rhs * a_scalar;	//  f * V2

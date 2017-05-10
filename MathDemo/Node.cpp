@@ -13,13 +13,13 @@ void Node::update(float dt) {
 
 void Node::render(aie::Renderer2D * renderer) {
 	// Debug render
-#ifdef _DEBUG
+	#ifdef _DEBUG
 		Matrix3<float> gMat = calculateGlobalTransform();
 		Vector2<float> pos = gMat.getTranslation();
 		float rot = gMat.getRotationZ();
 
 		renderer->drawBox(pos.x, pos.y, 5, 5, rot);
-#endif // _DEBUG
+	#endif // _DEBUG
 }
 
 void Node::setParent(Node * parent) {

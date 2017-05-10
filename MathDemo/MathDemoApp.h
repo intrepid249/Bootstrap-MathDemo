@@ -34,7 +34,7 @@ private:
 	void initControlLayouts();
 
 protected:
-	enum eTexID { TANK_TEX, TANK_TURRET_TEX, TANK_BULLET_TEX, RETICLE_TEX };
+	enum eTexID { TANK_TEX, TANK_TURRET_TEX, TANK_BULLET_TEX, TANK_SHELL_TEX, RETICLE_TEX };
 	enum eControlSchemes { TANK_CONTROLS = 0xCAFE, PLAYER_CONTROLS }; // some code we can 'sink our teeth' into
 
 	std::map<eTexID, std::shared_ptr<aie::Texture>> m_textures;

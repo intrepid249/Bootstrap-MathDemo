@@ -9,6 +9,10 @@
 ////	Created by:		Jack McCall
 ////	Description:	Demonstrates the use of the maths library
 ////					to calculate collision and matrix heirachies
+////
+////	Sound effects from http://www.freesfx.co.uk
+////	Music from http://dl-sounds.com/
+////	images from https://opengameart.org/
 
 
 int main() {

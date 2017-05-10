@@ -6,7 +6,7 @@
 class Tank : public Vehicle {
 public:
 	Tank();
-	Tank(aie::Texture *baseTex, aie::Texture *turretTex, aie::Texture *bulletTex);
+	Tank(aie::Texture *baseTex, aie::Texture *turretTex, aie::Texture *bulletTex, aie::Texture *shellTex);
 	virtual ~Tank();
 
 	/** Overload the parent's update function*/
@@ -21,17 +21,25 @@ public:
 protected:
 	std::unique_ptr<GameEntity> m_turret;
 	std::unique_ptr<Node> m_barrel;
-	aie::Texture *m_bulletTex;
+	std::unique_ptr<Node> m_machinegunLeft, m_machinegunRight;
+	aie::Texture *m_bulletTex, *m_shellTex;
 
 	/// Some stuff to handle shooting
 	/** This will loop the timer that resets the flag when we are able to
 	shoot a bullet*/
-	virtual void updateShooting(float dt);
+	virtual void updateMainGun(float dt);
 	/** This will create a bullet*/
-	virtual void shoot();
+	virtual void shootMainGun();
+	/** This will loop the timer that resets the flag when we are able to
+	shoot a bullet*/
+	virtual void updateMachinegun(float dt);
+	/** This will create a bullet*/
+	virtual void shootMachinegun();
+	/** Clean up the memory for all the 'dead' bullets*/
+	virtual void cleanupBullets();
 
 	std::vector<std::unique_ptr<Bullet>> m_bullets;
-	bool m_isShooting, m_canShoot;
-	float m_shootTimer;
+	bool m_isShootingMainGun, m_canShootMainGun, m_isShootingMachinegun, m_canShootMachinegun;
+	float m_mainGunTimer, m_machinegunTimer;
 };
 

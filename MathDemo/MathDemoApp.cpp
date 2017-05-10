@@ -30,6 +30,7 @@ void MathDemoApp::initControlLayouts() {
 	controlLayouts[TANK_CONTROLS][LEFT] = aie::INPUT_KEY_A;
 	controlLayouts[TANK_CONTROLS][RIGHT] = aie::INPUT_KEY_D;
 	controlLayouts[TANK_CONTROLS][SHOOT] = aie::INPUT_MOUSE_BUTTON_LEFT;
+	controlLayouts[TANK_CONTROLS][SECONDARYFIRE] = aie::INPUT_MOUSE_BUTTON_RIGHT;
 }
 
 bool MathDemoApp::startup() {
@@ -39,16 +40,19 @@ bool MathDemoApp::startup() {
 	m_font = ResourceManager::loadUniqueResource<aie::Font>("./font/consolas.ttf", 32);
 
 	// Initialise the texture resources
-	m_textures[TANK_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankBlue.png");
-	m_textures[TANK_TURRET_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/barrelBlue.png");
-	m_textures[TANK_BULLET_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/bullet.png");
+	m_textures[TANK_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankBase.png");
+	m_textures[TANK_TURRET_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankTurret.png");
+	m_textures[TANK_BULLET_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankBullet.png");
+	m_textures[TANK_SHELL_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankShell.png");
 	m_textures[RETICLE_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/Reticle.png");
+
 
 	// Initialise the control schemes
 	initControlLayouts();
 
 	// Make a tank for the player to drive around in
-	tank = std::unique_ptr<Tank>(new Tank(m_textures[TANK_TEX].get(), m_textures[TANK_TURRET_TEX].get(), m_textures[TANK_BULLET_TEX].get()));
+	tank = std::unique_ptr<Tank>(new Tank(m_textures[TANK_TEX].get(), m_textures[TANK_TURRET_TEX].get(), 
+									m_textures[TANK_BULLET_TEX].get(), m_textures[TANK_SHELL_TEX].get()));
 	tank->translate(Vector2<float>(300, 300));
 	// Give the user control so that we can drive around
 	tank->setUserControlled(true);
@@ -57,6 +61,7 @@ bool MathDemoApp::startup() {
 	// Set the control scheme for the tank
 	tank->setControls(controlLayouts[TANK_CONTROLS]);
 	m_nodes.push_back(tank.get());
+
 
 	// Make a custom cursor reticle
 	m_reticle = std::unique_ptr<SpriteNode>(new SpriteNode(m_textures[RETICLE_TEX].get()));

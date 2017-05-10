@@ -1,6 +1,7 @@
 #include "OBB.h"
 #include <Vector2.h>
 #include <Renderer2D.h>
+#include <Utility.h>
 
 OBB::OBB() {}
 
@@ -13,19 +14,31 @@ OBB::OBB(float width, float height) : m_size(Vector2<float>(width, height))
 OBB::~OBB() {}
 
 void OBB::render(aie::Renderer2D *renderer) {
-#ifdef _DEBUG
+	#ifdef _DEBUG
+		// Draw the vertices
 		renderer->setRenderColour(0xff0000ff);
 		for (size_t i = 0; i < m_points.size(); ++i) {
 			Vector2<float> p = m_points[i];
 			renderer->drawBox(p.x, p.y, 3, 3);
 		}
+		// Draw the collider box outline
 		renderer->drawLine(m_points[0].x, m_points[0].y, m_points[1].x, m_points[1].y);
 		renderer->drawLine(m_points[1].x, m_points[1].y, m_points[2].x, m_points[2].y);
 		renderer->drawLine(m_points[2].x, m_points[2].y, m_points[3].x, m_points[3].y);
 		renderer->drawLine(m_points[3].x, m_points[3].y, m_points[0].x, m_points[0].y);
 
+		// Draw the face normals
+		renderer->setRenderColour(0x00f080ff);
+		Vector2<float> pos = calculateGlobalTransform().getTranslation();
+		std::vector<Vector2<float>> faceNormals = calculateFaceNormals();
+		renderer->drawLine(faceNormals[0].x + pos.x, faceNormals[0].y + pos.y, pos.x, pos.y);
+		renderer->drawLine(faceNormals[1].x + pos.x, faceNormals[1].y + pos.y, pos.x, pos.y);
+		renderer->drawLine(faceNormals[2].x + pos.x, faceNormals[2].y + pos.y, pos.x, pos.y);
+		renderer->drawLine(faceNormals[3].x + pos.x, faceNormals[3].y + pos.y, pos.x, pos.y);
+
+
 		renderer->setRenderColour(0xffffffff);
-#endif // _DEBUG
+	#endif // _DEBUG
 }
 
 void OBB::updatePointsByMatrix(float  *worldMat) {
@@ -60,15 +73,29 @@ void OBB::updatePointsByMatrix(float  *worldMat) {
 	m_points[3] = Vector2<float>(blX, blY);
 }
 
+std::vector<Vector2<float>> OBB::calculateFaceNormals() {
+	std::vector<Vector2<float>> temp;
+	//North
+	temp.push_back(LinearHalf(m_points[0], m_points[1]));
+	//East
+	temp.push_back(LinearHalf(m_points[1], m_points[2]));
+	//South
+	temp.push_back(LinearHalf(m_points[2], m_points[3]));
+	//West
+	temp.push_back(LinearHalf(m_points[3], m_points[0]));
+
+	return temp;
+}
+
 /*functions for calculating GJK collision
 for more details and reference see:
 	* https://www.youtube.com/watch?v=Qupqu1xe7Io
 	* http://www.dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/
 	* https://github.com/kroitor/gjk.c
 */
-Vector2<float> OBB::averagePoint() {
-	return Vector2<float>();
-}
+//Vector2<float> OBB::averagePoint() {
+//	return Vector2<float>();
+//}
 
 bool OBB::contains(Vector2<float> & point) {
 	Vector2<float> pos = m_parent->getLocPos();
@@ -80,7 +107,10 @@ bool OBB::contains(Vector2<float> & point) {
 }
 
 bool OBB::collides(OBB & rhs) {
-	
+	Vector2<float> pos = calculateGlobalTransform().getTranslation();
+	std::vector<Vector2<float>> faceNormals = calculateFaceNormals();
+
+
 
 	return false;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include <Vector2.h>
 #include <vector>
 
 class OBB : public Node {
@@ -10,15 +11,15 @@ public:
 
 	virtual void render(aie::Renderer2D *renderer);
 	void updatePointsByMatrix(float *worldMat);
+	
+	/**Calculate the normals for each of the faces*/
+	std::vector<Vector2<float>> calculateFaceNormals();
 
-
-	Vector2<float> averagePoint();
-
-	// Check if a point is within the bounding region
+	/**Check if a point is within the bounding region*/
 	bool contains(Vector2<float> &point);
-	// Check if a line intersects the collider box
+	/**Check if a line intersects the collider box*/
 	bool intersects(/*line*/) {}
-	// Check if we collide with another collider box
+	/**Check if we collide with another collider box*/
 	bool collides(OBB &rhs);
 
 

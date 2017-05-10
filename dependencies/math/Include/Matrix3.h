@@ -49,19 +49,33 @@ public:
 	void setTranslation(T a_x, T a_y);
 	// only set the translation component of the matrix
 	void setTranslation(const Vector2<T> &a_vec);
-
-	void setRotateX(T a_rot);
-	void setRotateY(T a_rot);
-	void setRotateZ(T a_rot);
-	T getRotationZ();
-
 	// add x and y onto the translation component of the matrix
 	void translate(T a_x, T a_y);
 	// add x and y onto the translation component of the matrix
 	void translate(const Vector2<T> &a_vec);
-
 	// returns the translation component of the matrix
 	Vector2<T> getTranslation() const;
+
+	// set the x-axis rotation
+	void setRotateX(T a_rot);
+	// set the y-axis rotation
+	void setRotateY(T a_rot);
+	// set the z-axis rotation
+	void setRotateZ(T a_rot);
+	// return the x-axis rotation
+	T getRotationX() const;
+	// return the y-axis rotation
+	T getRotationY() const;
+	// return the z-axis rotation
+	T getRotationZ() const;
+
+	// only set the scale component of the matrix
+	void setScale(const Vector2<T> &a_vec);
+	// only set the scale component of the matrix
+	void setScale(T a_x, T a_y);
+	// returns the scale component of the matrix
+	Vector2<T> getScale() const;
+
 #pragma endregion
 
 	union {
