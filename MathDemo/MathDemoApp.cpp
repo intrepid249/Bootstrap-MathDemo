@@ -107,6 +107,8 @@ void MathDemoApp::update(float deltaTime) {
 	//Update the list of world objects
 	for (size_t i = 0; i < m_nodes.size(); ++i)
 		m_nodes[i]->update(deltaTime);
+
+	checkCollisions();
 }
 
 void MathDemoApp::draw() {
@@ -134,9 +136,8 @@ void MathDemoApp::draw() {
 }
 
 void MathDemoApp::checkCollisions() {
-	tank->checkCollision(m_nodes);
-
-	for (size_t i = 0; i < m_nodes.size(); ++i) {
-
-	}
+	std::vector<Node*> rocks;
+	for (size_t i = 0; i < m_rocks.size(); ++i)
+		rocks.push_back(m_rocks[i].get());
+	tank->checkCollision(rocks);
 }

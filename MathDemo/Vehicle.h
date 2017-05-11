@@ -8,6 +8,8 @@
 class Vehicle : public GameEntity {
 public:
 	Vehicle();
+	/** Create a new vehicle object
+	* @param tex - the image to use for the vehicle's chassis*/
 	Vehicle(aie::Texture *tex);
 	virtual ~Vehicle();
 

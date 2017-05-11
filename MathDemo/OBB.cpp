@@ -101,6 +101,8 @@ void OBB::calcMinMax(const Vector2<float>& axis, float & min, float & max) {
 		if (dotVal < minAlong) minAlong = dotVal;
 		if (dotVal > maxAlong) maxAlong = dotVal;
 	}
+	min = minAlong;
+	max = maxAlong;
 }
 
 bool OBB::contains(Vector2<float> & point) {
