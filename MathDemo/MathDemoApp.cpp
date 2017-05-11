@@ -45,6 +45,7 @@ bool MathDemoApp::startup() {
 	m_textures[TANK_BULLET_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankBullet.png");
 	m_textures[TANK_SHELL_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/tankShell.png");
 	m_textures[RETICLE_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/Reticle.png");
+	m_textures[LARGE_ROCK_TEX] = ResourceManager::loadSharedResource<aie::Texture>("./textures/rock_large.png");
 
 
 	// Initialise the control schemes
@@ -66,8 +67,19 @@ bool MathDemoApp::startup() {
 	// Make a custom cursor reticle
 	m_reticle = std::unique_ptr<SpriteNode>(new SpriteNode(m_textures[RETICLE_TEX].get()));
 
+	// Make some rocks
+	for (size_t i = 0; i < 1; ++i) {
+		std::unique_ptr<GameEntity> rock = std::unique_ptr<GameEntity>(new GameEntity(m_textures[LARGE_ROCK_TEX].get()));
+		m_rocks.push_back(std::move(rock));
+	}
+
+#if 1 // So we can see where the origin is while we drive around -- for testing purposes
 	worldOrigin = new Node();
 	m_nodes.push_back(worldOrigin);
+#endif
+
+	for (size_t i = 0; i < m_rocks.size(); ++i)
+		m_nodes.push_back(m_rocks[i].get());
 
 	return true;
 }
@@ -119,4 +131,12 @@ void MathDemoApp::draw() {
 
 	// done drawing sprites
 	m_renderer->end();
+}
+
+void MathDemoApp::checkCollisions() {
+	tank->checkCollision(m_nodes);
+
+	for (size_t i = 0; i < m_nodes.size(); ++i) {
+
+	}
 }

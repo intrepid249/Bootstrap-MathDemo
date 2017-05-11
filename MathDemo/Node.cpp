@@ -1,5 +1,6 @@
 #include "Node.h"
 #include <Renderer2D.h>
+#include "OBB.h"
 
 Node::Node() {
 }
@@ -21,6 +22,15 @@ void Node::render(aie::Renderer2D * renderer) {
 		renderer->drawBox(pos.x, pos.y, 5, 5, rot);
 	#endif // _DEBUG
 }
+
+OBB * Node::getCollider() {
+	// Just make this empty so child classes can call it
+	return nullptr;
+}
+
+//bool Node::checkCollision(std::vector<Node*> objects) {
+//	return false;
+//}
 
 void Node::setParent(Node * parent) {
 	m_parent = parent;

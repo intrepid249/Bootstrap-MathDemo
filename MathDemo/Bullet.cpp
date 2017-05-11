@@ -14,6 +14,7 @@ Bullet::~Bullet() {
 }
 
 void Bullet::update(float dt) {
+	GameEntity::update(dt);
 	// Move in it's direction
 	Vector2<float> velocity = Vector2<float>(cosf(degToRad(getLocRot())) * m_moveSpeed, sinf(degToRad(getLocRot())) * m_moveSpeed);
 	translate(velocity * dt);

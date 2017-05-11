@@ -15,9 +15,11 @@ public:
 	virtual void updateControls(aie::Input *input);
 	/** Overload the parent's render function*/
 	virtual void render(aie::Renderer2D *renderer);
+	/**Calculate collision against a collection of objects*/
+	virtual bool checkCollision(std::vector<Node*> objects);
 
 	/** Gets a list of the bullet pointers*/
-	virtual std::vector<GameEntity*> getBullets();
+	virtual std::vector<Bullet*> getBullets();
 protected:
 	std::unique_ptr<GameEntity> m_turret;
 	std::unique_ptr<Node> m_barrel;

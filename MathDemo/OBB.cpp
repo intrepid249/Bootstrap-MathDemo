@@ -3,6 +3,8 @@
 #include <Renderer2D.h>
 #include <Utility.h>
 
+#include <iostream>
+
 OBB::OBB() {}
 
 OBB::OBB(float width, float height) : m_size(Vector2<float>(width, height)) 
@@ -87,15 +89,19 @@ std::vector<Vector2<float>> OBB::calculateFaceNormals() {
 	return temp;
 }
 
-/*functions for calculating GJK collision
-for more details and reference see:
-	* https://www.youtube.com/watch?v=Qupqu1xe7Io
-	* http://www.dyn4j.org/2010/04/gjk-gilbert-johnson-keerthi/
-	* https://github.com/kroitor/gjk.c
-*/
-//Vector2<float> OBB::averagePoint() {
-//	return Vector2<float>();
-//}
+bool OBB::isBetweenOrdered(float val, float lowerBound, float upperBound) {
+	return lowerBound <= val && val <= upperBound;
+}
+
+void OBB::calcMinMax(const Vector2<float>& axis, float & min, float & max) {
+	// Referenced from https://gamedev.stackexchange.com/questions/25397/obb-vs-obb-collision-detection
+	float minAlong = 999999, maxAlong = -999999;
+	for (size_t i = 0; i < m_points.size(); ++i) {
+		float dotVal = m_points[i].dot(axis);
+		if (dotVal < minAlong) minAlong = dotVal;
+		if (dotVal > maxAlong) maxAlong = dotVal;
+	}
+}
 
 bool OBB::contains(Vector2<float> & point) {
 	Vector2<float> pos = m_parent->getLocPos();
@@ -110,7 +116,14 @@ bool OBB::collides(OBB & rhs) {
 	Vector2<float> pos = calculateGlobalTransform().getTranslation();
 	std::vector<Vector2<float>> faceNormals = calculateFaceNormals();
 
+	float lhsMin, lhsMax, rhsMin, rhsMax;
+	for (size_t i = 0; i < faceNormals.size(); ++i) {
+		calcMinMax(faceNormals[i], lhsMin, lhsMax);
+		calcMinMax(faceNormals[i], rhsMin, rhsMax);
+		
+		// if there is no overlap, there can be no collision
+		if (!(isBetweenOrdered(rhsMin, lhsMin, lhsMax) || isBetweenOrdered(lhsMin, rhsMin, rhsMax))) return false;
+	}
 
-
-	return false;
+	return true;
 }

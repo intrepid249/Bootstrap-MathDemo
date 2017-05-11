@@ -1,9 +1,12 @@
 #pragma once
 #include <Matrix3.h>
 #include <Vector2.h>
+
 namespace aie {
 	class Renderer2D;
 }
+
+class OBB;
 
 class Node {
 public:
@@ -12,6 +15,9 @@ public:
 
 	virtual void update(float dt);
 	virtual void render(aie::Renderer2D *renderer);
+
+	virtual OBB* getCollider();
+	//virtual bool checkCollision(std::vector<Node*> objects);
 
 	void setParent(Node *parent);
 

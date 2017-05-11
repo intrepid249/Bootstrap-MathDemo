@@ -21,7 +21,7 @@ GameEntity::~GameEntity() {
 
 void GameEntity::update(float dt) {
 	SpriteNode::update(dt);
-	m_collider->updatePointsByMatrix((float*)&getTransform());
+	m_collider->updatePointsByMatrix((float*)&calculateGlobalTransform());
 }
 
 void GameEntity::render(aie::Renderer2D * renderer) {
@@ -30,6 +30,13 @@ void GameEntity::render(aie::Renderer2D * renderer) {
 		m_collider->render(renderer);
 	}
 }
+
+//bool GameEntity::checkCollision(std::vector<Node*> objects) {
+//	for (size_t i = 0; i < objects.size(); ++i) {
+//		if (getCollider()->collides(*objects[i]->getCollider())) return true;
+//	}
+//	return false;
+//}
 
 OBB* GameEntity::getCollider() {
 	return m_collider.get();

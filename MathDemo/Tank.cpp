@@ -2,6 +2,7 @@
 #include <Renderer2D.h>
 #include <Vector2.h>
 #include <Utility.h>
+#include "OBB.h"
 
 #include <iostream>
 
@@ -46,6 +47,7 @@ Tank::~Tank() {
 
 void Tank::update(float dt) {
 	Vehicle::update(dt);
+	m_turret->update(dt);
 
 	// Get an instance of the external input devices
 	aie::Input *input = aie::Input::getInstance();
@@ -122,8 +124,21 @@ void Tank::render(aie::Renderer2D * renderer) {
 		m_bullets[i]->render(renderer);
 }
 
-std::vector<GameEntity*> Tank::getBullets() {
-	std::vector<GameEntity*> temp;
+bool Tank::checkCollision(std::vector<Node*> objects) {
+//	Vehicle::checkCollision(objects);
+	for (size_t i = 0; i < m_bullets.size(); ++i) {
+		OBB* collider = m_bullets[i]->getCollider();
+		for (size_t o = 0; o < objects.size(); ++o)
+			if (collider->collides(*objects[o]->getCollider())) {
+				m_bullets[i]->setDrawn(false);
+				return true;
+			}
+	}
+	return false;
+}
+
+std::vector<Bullet*> Tank::getBullets() {
+	std::vector<Bullet*> temp;
 
 	for (size_t i = 0; i < m_bullets.size(); ++i)
 		temp.push_back(m_bullets[i].get());
