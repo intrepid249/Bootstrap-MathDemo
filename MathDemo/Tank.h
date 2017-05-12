@@ -3,6 +3,8 @@
 #include "Bullet.h"
 #include <memory>
 
+/** A specialised vehicle class that allows the user to shoot bullets and tank shells
+* @author Jack McCall*/
 class Tank : public Vehicle {
 public:
 	Tank();
@@ -15,11 +17,13 @@ public:
 	virtual ~Tank();
 
 	/** Overload the parent's update function
-	* @param dt - deltaTime (amount of time since last frame)*/
+	* @see MathDemo::Node#update(float)*/
 	virtual void update(float dt);
-	/** Overload the parent's update controls function*/
+	/** Overload the parent's update controls function
+	* @see MathDemo::Vehicle#updateControls(aie::Input)*/
 	virtual void updateControls(aie::Input *input);
-	/** Overload the parent's render function*/
+	/** Overload the parent's render function
+	* @see MathDemo::Node#render(aie::Renderer2D)*/
 	virtual void render(aie::Renderer2D *renderer);
 	/**Calculate collision against a collection of objects*/
 	virtual bool checkCollision(std::vector<Node*> objects);
@@ -35,12 +39,14 @@ protected:
 
 	/// Some stuff to handle shooting
 	/** This will loop the timer that resets the flag when we are able to
-	shoot a bullet*/
+	shoot a tank shell
+	* @param dt - deltaTime (amount of time since last frame)*/
 	virtual void updateMainGun(float dt);
 	/** This will create a bullet*/
 	virtual void shootMainGun();
 	/** This will loop the timer that resets the flag when we are able to
-	shoot a bullet*/
+	shoot a bullet
+	* @param dt - deltaTime (amount of time since last frame)*/
 	virtual void updateMachinegun(float dt);
 	/** This will create a bullet*/
 	virtual void shootMachinegun();

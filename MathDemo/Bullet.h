@@ -2,6 +2,8 @@
 #include "GameEntity.h"
 #include <Texture.h>
 
+/** Object with a movement speed in its forward direction and a set lifetime
+* @author Jack McCall*/
 class Bullet : public GameEntity {
 public:
 	Bullet();
@@ -11,10 +13,12 @@ public:
 	~Bullet();
 
 	/** Overload the parent's update function
-	* @param dt - deltaTime (amount of time since last frame)*/
+	* @see MathDemo::Node#update(float)*/
 	virtual void update(float dt);
-
+	
+	/** Sets the movement speed of the bullet*/
 	void setMoveSpeed(float speed);
+	/** Sets the amount of time (in seconds) the bullet will stay alive*/
 	void setLifetime(float lifespan);
 
 protected:

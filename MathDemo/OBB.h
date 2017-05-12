@@ -3,6 +3,8 @@
 #include <Vector2.h>
 #include <vector>
 
+/** A rectangular object that can be used to test for collision against other objects
+* @author Jack McCall*/
 class OBB : public Node {
 public:
 	OBB();
