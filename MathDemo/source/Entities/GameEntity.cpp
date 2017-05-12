@@ -3,8 +3,8 @@
 #include <Vector2.h>
 
 
-#include "OBB.h"
-#include "GameEntity.h"
+#include "Colliders/OBB.h"
+#include "Entities/GameEntity.h"
 
 
 GameEntity::GameEntity() {

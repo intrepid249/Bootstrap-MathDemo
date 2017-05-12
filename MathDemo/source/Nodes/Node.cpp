@@ -1,6 +1,6 @@
-#include "Node.h"
+#include "Nodes/Node.h"
 #include <Renderer2D.h>
-#include "OBB.h"
+#include "Colliders/OBB.h"
 
 Node::Node() {
 }

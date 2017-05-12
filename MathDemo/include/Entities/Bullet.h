@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEntity.h"
+#include "Entities/GameEntity.h"
 #include <Texture.h>
 
 /** Object with a movement speed in its forward direction and a set lifetime

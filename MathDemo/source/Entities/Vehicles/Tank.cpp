@@ -1,8 +1,8 @@
-#include "Tank.h"
+#include "Entities/Vehicles/Tank.h"
 #include <Renderer2D.h>
 #include <Vector2.h>
 #include <Utility.h>
-#include "OBB.h"
+#include "Colliders/OBB.h"
 
 #include <iostream>
 

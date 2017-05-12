@@ -7,9 +7,9 @@
 #include <Vector2.h>
 #include "settings.h"
 #include <Input.h>
-#include "SpriteNode.h"
+#include "Nodes/SpriteNode.h"
 
-#include "GameEntity.h"
+#include "Entities/GameEntity.h"
 
 namespace aie {
 	class Font;
