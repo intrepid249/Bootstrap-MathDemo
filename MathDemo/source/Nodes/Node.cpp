@@ -28,9 +28,15 @@ OBB * Node::getCollider() {
 	return nullptr;
 }
 
-//bool Node::checkCollision(std::vector<Node*> objects) {
-//	return false;
-//}
+aie::Texture * Node::getParticleType() {
+	// Just make this empty so child classes can call it
+	return nullptr;
+}
+
+aie::Texture * Node::getTexture() {
+	// Just make this empty so child classes can call it
+	return nullptr;
+}
 
 void Node::setParent(Node * parent) {
 	m_parent = parent;

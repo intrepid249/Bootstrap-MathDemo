@@ -15,7 +15,7 @@ public:
 	SpriteNode(aie::Texture *m_tex);
 	~SpriteNode();
 
-	/*Overload the parent's render function*/
+	/*Override the parent's render function*/
 	virtual void render(aie::Renderer2D * renderer);
 
 	/*Set the size of the Sprite Node*/
@@ -27,6 +27,8 @@ public:
 	void setOrigin(const Vector2<float> &origin);
 	/*Get the rendering offset of the Sprite Node*/
 	Vector2<float>& getOrigin();
+
+	virtual aie::Texture* getTexture();
 
 protected:
 	aie::Texture *m_sprite;

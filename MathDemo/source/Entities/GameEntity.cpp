@@ -10,7 +10,7 @@
 GameEntity::GameEntity() {
 }
 
-GameEntity::GameEntity(aie::Texture * tex) : SpriteNode(tex) {
+GameEntity::GameEntity(aie::Texture * tex) : SpriteNode(tex), m_particleType(tex) {
 	m_collider = std::unique_ptr<OBB>(new OBB((float)tex->getWidth(), (float)tex->getHeight()));
 	m_collider->setParent(this);
 }
@@ -31,13 +31,10 @@ void GameEntity::render(aie::Renderer2D * renderer) {
 	}
 }
 
-//bool GameEntity::checkCollision(std::vector<Node*> objects) {
-//	for (size_t i = 0; i < objects.size(); ++i) {
-//		if (getCollider()->collides(*objects[i]->getCollider())) return true;
-//	}
-//	return false;
-//}
-
 OBB* GameEntity::getCollider() {
 	return m_collider.get();
+}
+
+aie::Texture * GameEntity::getParticleType() {
+	return m_particleType;
 }

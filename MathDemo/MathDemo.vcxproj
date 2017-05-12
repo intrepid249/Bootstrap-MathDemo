@@ -100,6 +100,7 @@
     <ClInclude Include="include\MathDemoApp.h" />
     <ClInclude Include="include\Nodes\Node.h" />
     <ClInclude Include="include\Colliders\OBB.h" />
+    <ClInclude Include="include\Particles\ParticleGenerator.h" />
     <ClInclude Include="include\ResourceManager\ErrorManager.h" />
     <ClInclude Include="include\ResourceManager\ResourceManager.h" />
     <ClInclude Include="include\settings.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="include\Entities\Vehicles\Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Particles\ParticleGenerator.cpp" />
     <ClCompile Include="source\Colliders\OBB.cpp" />
     <ClCompile Include="source\Entities\Bullet.cpp" />
     <ClCompile Include="source\Entities\Creatures\Creature.cpp" />
