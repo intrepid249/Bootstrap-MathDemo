@@ -103,6 +103,7 @@ void Tank::update(float dt) {
 void Tank::updateControls(aie::Input * input) {
 	Vehicle::updateControls(input);
 	
+	// Update shooting control flags
 	if (input->isMouseButtonDown(m_controls[SHOOT]))
 		m_isShootingMainGun = true;
 	if (input->isMouseButtonUp(m_controls[SHOOT]))

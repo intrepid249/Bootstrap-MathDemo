@@ -89,22 +89,6 @@ std::vector<Vector2<float>> OBB::calculateFaceNormals() {
 	return temp;
 }
 
-bool OBB::isBetweenOrdered(float val, float lowerBound, float upperBound) {
-	return lowerBound <= val && val <= upperBound;
-}
-
-void OBB::calcMinMax(const Vector2<float>& axis, float & min, float & max) {
-	// Referenced from https://gamedev.stackexchange.com/questions/25397/obb-vs-obb-collision-detection
-	float minAlong = 999999, maxAlong = -999999;
-	for (size_t i = 0; i < m_points.size(); ++i) {
-		float dotVal = m_points[i].dot(axis);
-		if (dotVal < minAlong) minAlong = dotVal;
-		if (dotVal > maxAlong) maxAlong = dotVal;
-	}
-	min = minAlong;
-	max = maxAlong;
-}
-
 bool OBB::contains(Vector2<float> & point) {
 	Vector2<float> pos = m_parent->getLocPos();
 
@@ -115,17 +99,15 @@ bool OBB::contains(Vector2<float> & point) {
 }
 
 bool OBB::collides(OBB & rhs) {
-	Vector2<float> pos = calculateGlobalTransform().getTranslation();
 	std::vector<Vector2<float>> faceNormals = calculateFaceNormals();
 
-	float lhsMin, lhsMax, rhsMin, rhsMax;
+	Vector2<float> pos = calculateGlobalTransform().getTranslation();
+	
 	for (size_t i = 0; i < faceNormals.size(); ++i) {
-		calcMinMax(faceNormals[i], lhsMin, lhsMax);
-		calcMinMax(faceNormals[i], rhsMin, rhsMax);
-		
-		// if there is no overlap, there can be no collision
-		if (!(isBetweenOrdered(rhsMin, lhsMin, lhsMax) || isBetweenOrdered(lhsMin, rhsMin, rhsMax))) return false;
+		if (!rhs.contains(Vector2<float>(pos.x + faceNormals[i].x, pos.y + faceNormals[i].y)))
+			return false;
 	}
+
 
 	return true;
 }
