@@ -4,6 +4,7 @@
 
 namespace aie {
 	class Renderer2D;
+	class Texture;
 }
 
 class OBB;
@@ -24,6 +25,12 @@ public:
 
 	/** Get a pointer to the collider box*/
 	virtual OBB* getCollider();
+
+	/** Get a pointer to the particle texture*/
+	virtual aie::Texture* getParticleType();
+
+	/** Get a particle type*/
+	virtual aie::Texture* getTexture();
 
 	/** Set the upper-heirachy for coupling transform calculations*/
 	void setParent(Node *parent);

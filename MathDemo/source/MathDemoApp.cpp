@@ -70,6 +70,7 @@ bool MathDemoApp::startup() {
 	// Make some rocks
 	for (size_t i = 0; i < 1; ++i) {
 		std::unique_ptr<GameEntity> rock = std::unique_ptr<GameEntity>(new GameEntity(m_textures[LARGE_ROCK_TEX].get()));
+		rock->translate(Vector2<float>(500, 200));
 		m_rocks.push_back(std::move(rock));
 	}
 

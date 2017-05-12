@@ -1,7 +1,10 @@
 #pragma once
+#include "Nodes/SpriteNode.h"
 #include <memory>
 class OBB;
-#include "Nodes/SpriteNode.h"
+namespace aie {
+	class Texture;
+}
 
 /** An object on-screen with a sprite image and an Oriented Bounding Box for collision
 * @author Jack McCall*/
@@ -11,16 +14,20 @@ public:
 	GameEntity(aie::Texture *tex);
 	virtual ~GameEntity();
 
-	/**Overload the parent's update function
+	/**Override the parent's update function
 	* @see MathDemo::Node#update(float)*/
 	virtual void update(float dt);
-	/**Overload the parent's render function
+	/**Override the parent's render function
 	* @see MathDemo::Node#render(aie::Renderer2D)*/
 	virtual void render(aie::Renderer2D *renderer);
 
 	/** Get a pointer to the collider box*/
 	OBB* getCollider();
 
+	/** Get a pointer to the particle texture*/
+	virtual aie::Texture* getParticleType();
+
 protected:
+	aie::Texture *m_particleType;
 	std::unique_ptr<OBB> m_collider;	// The object's Oriented Bounding Box
 };

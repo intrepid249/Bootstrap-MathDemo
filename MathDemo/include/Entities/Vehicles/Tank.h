@@ -3,6 +3,8 @@
 #include "Entities/Bullet.h"
 #include <memory>
 
+class ParticleGenerator;
+
 /** A specialised vehicle class that allows the user to shoot bullets and tank shells
 * @author Jack McCall*/
 class Tank : public Vehicle {
@@ -51,8 +53,9 @@ protected:
 	/** This will create a bullet*/
 	virtual void shootMachinegun();
 	/** Clean up the memory for all the 'dead' bullets*/
-	virtual void cleanupBullets();
+	virtual void doCleanup();
 
+	std::vector<std::unique_ptr<ParticleGenerator>> m_particleGenerators;
 	std::vector<std::unique_ptr<Bullet>> m_bullets;	// A list of all the bullets we're shooting
 	bool m_isShootingMainGun, m_canShootMainGun, m_isShootingMachinegun, m_canShootMachinegun;
 	float m_mainGunTimer, m_machinegunTimer;

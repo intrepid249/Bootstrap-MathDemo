@@ -3,6 +3,9 @@
 #include <Vector2.h>
 #include <Utility.h>
 #include "Colliders/OBB.h"
+#include "Particles/ParticleGenerator.h"
+#include <Texture.h>
+#include <ResourceManager\ResourceManager.h>
 
 #include <iostream>
 
@@ -66,6 +69,9 @@ void Tank::update(float dt) {
 		for (size_t i = 0; i < m_bullets.size(); ++i)
 			m_bullets[i]->update(dt);
 
+		for (size_t i = 0; i < m_particleGenerators.size(); ++i)
+			m_particleGenerators[i]->update(dt);
+
 		// Calculate the mouse position on the screen
 		int mouseX, mouseY;
 		input->getMouseXY(&mouseX, &mouseY);
@@ -96,7 +102,7 @@ void Tank::update(float dt) {
 		m_machinegunRight->setRotate(rad); // rotate around the offset
 		m_machinegunRight->translate(Vector2<float>(m_turret->getSize().x / 2, 0.0f)); // and put it back where it should be
 
-		cleanupBullets();
+		doCleanup();
 	}
 }
 
@@ -123,14 +129,21 @@ void Tank::render(aie::Renderer2D * renderer) {
 
 	for (size_t i = 0; i < m_bullets.size(); ++i)
 		m_bullets[i]->render(renderer);
+
+	for (size_t i = 0; i < m_particleGenerators.size(); ++i)
+		m_particleGenerators[i]->render(renderer);
 }
 
 bool Tank::checkCollision(std::vector<Node*> objects) {
-//	Vehicle::checkCollision(objects);
 	for (size_t i = 0; i < m_bullets.size(); ++i) {
 		OBB* collider = m_bullets[i]->getCollider();
 		for (size_t o = 0; o < objects.size(); ++o)
 			if (collider->collides(*objects[o]->getCollider())) {
+				std::unique_ptr<ParticleGenerator> pgen = std::unique_ptr<ParticleGenerator>(new ParticleGenerator(objects[o]->getTexture()));
+				pgen->setLifetime(1.2);
+				pgen->translate(m_bullets[i]->getTransform().getTranslation());
+				pgen->createExplosion(3, 10, 5, 15);
+				m_particleGenerators.push_back(std::move(pgen));
 				m_bullets[i]->setDrawn(false);
 				return true;
 			}
@@ -196,8 +209,12 @@ void Tank::shootMachinegun() {
 	m_bullets.push_back(std::move(bullet2));
 }
 
-void Tank::cleanupBullets() {
+void Tank::doCleanup() {
 	for (size_t i = 0; i < m_bullets.size(); ++i)
 		if (!m_bullets[i]->isDrawn())
 			m_bullets.erase(m_bullets.begin() + i);
+
+	for (size_t i = 0; i < m_particleGenerators.size(); ++i)
+		if (!m_particleGenerators[i]->isDrawn())
+			m_particleGenerators.erase(m_particleGenerators.begin() + i);
 }

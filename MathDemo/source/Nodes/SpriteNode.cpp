@@ -35,3 +35,7 @@ void SpriteNode::setOrigin(const Vector2<float> &origin) {
 Vector2<float> & SpriteNode::getOrigin() {
 	return m_origin;
 }
+
+aie::Texture * SpriteNode::getTexture() {
+	return m_sprite;
+}
