@@ -1,6 +1,4 @@
-#include "Creature.h"
-
-
+#include "Entities/Creatures/Creature.h"
 
 Creature::Creature() {
 }

@@ -24,9 +24,6 @@ public:
 
 	/** Get a pointer to the collider box*/
 	virtual OBB* getCollider();
-	#if 0
-	virtual bool checkCollision(std::vector<Node*> objects);
-	#endif
 
 	/** Set the upper-heirachy for coupling transform calculations*/
 	void setParent(Node *parent);

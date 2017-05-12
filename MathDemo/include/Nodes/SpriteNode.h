@@ -1,5 +1,5 @@
 #pragma once
-#include "Node.h"
+#include "Nodes/Node.h"
 
 namespace aie {
 	class Texture;

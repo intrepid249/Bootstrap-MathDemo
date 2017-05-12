@@ -1,6 +1,6 @@
 #pragma once
-#include "Vehicle.h"
-#include "Bullet.h"
+#include "Entities/Vehicles/Vehicle.h"
+#include "Entities/Bullet.h"
 #include <memory>
 
 /** A specialised vehicle class that allows the user to shoot bullets and tank shells

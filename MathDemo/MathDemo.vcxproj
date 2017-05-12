@@ -46,14 +46,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)dependencies\GLFW\include;$(ProjectDir)ResourceManager;$(SolutionDir)dependencies\math\Include;$(SolutionDir)bootstrap;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\GLFW\include;$(ProjectDir)include;$(SolutionDir)dependencies\math\Include;$(SolutionDir)bootstrap;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\math\LIB;$(SolutionDir)temp\bootstrap\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)temp\$(ProjectName)\$(Configuration)\</IntDir>
-    <IncludePath>$(ProjectDir)ResourceManager;$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies\math\Include;$(SolutionDir)bootstrap;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\GLFW\include;$(ProjectDir)include;$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)dependencies\math\Include;$(SolutionDir)bootstrap;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dependencies\math\LIB;$(SolutionDir)temp\bootstrap\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -94,30 +94,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Creature.cpp" />
-    <ClCompile Include="GameEntity.cpp" />
-    <ClCompile Include="MathDemoApp.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="OBB.cpp" />
-    <ClCompile Include="SpriteNode.cpp" />
-    <ClCompile Include="Tank.cpp" />
-    <ClCompile Include="Vehicle.cpp" />
+    <ClInclude Include="include\Entities\Bullet.h" />
+    <ClInclude Include="include\Entities\Creatures\Creature.h" />
+    <ClInclude Include="include\Entities\GameEntity.h" />
+    <ClInclude Include="include\MathDemoApp.h" />
+    <ClInclude Include="include\Nodes\Node.h" />
+    <ClInclude Include="include\Colliders\OBB.h" />
+    <ClInclude Include="include\ResourceManager\ErrorManager.h" />
+    <ClInclude Include="include\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="include\settings.h" />
+    <ClInclude Include="include\Nodes\SpriteNode.h" />
+    <ClInclude Include="include\Entities\Vehicles\Tank.h" />
+    <ClInclude Include="include\Entities\Vehicles\Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Creature.h" />
-    <ClInclude Include="GameEntity.h" />
-    <ClInclude Include="MathDemoApp.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="OBB.h" />
-    <ClInclude Include="ResourceManager\ErrorManager.h" />
-    <ClInclude Include="ResourceManager\ResourceManager.h" />
-    <ClInclude Include="settings.h" />
-    <ClInclude Include="SpriteNode.h" />
-    <ClInclude Include="Tank.h" />
-    <ClInclude Include="Vehicle.h" />
+    <ClCompile Include="source\Colliders\OBB.cpp" />
+    <ClCompile Include="source\Entities\Bullet.cpp" />
+    <ClCompile Include="source\Entities\Creatures\Creature.cpp" />
+    <ClCompile Include="source\Entities\GameEntity.cpp" />
+    <ClCompile Include="source\Entities\Vehicles\Tank.cpp" />
+    <ClCompile Include="source\Entities\Vehicles\Vehicle.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\MathDemoApp.cpp" />
+    <ClCompile Include="source\Nodes\Node.cpp" />
+    <ClCompile Include="source\Nodes\SpriteNode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

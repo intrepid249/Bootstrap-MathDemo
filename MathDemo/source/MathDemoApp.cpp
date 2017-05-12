@@ -3,17 +3,17 @@
 #include "Font.h"
 #include "Input.h"
 #include "Renderer2D.h"
-#include "GameEntity.h"
-#include "Node.h"
+#include "Entities/GameEntity.h"
+#include "Nodes/Node.h"
 
 #include <Utility.h>
-#include "OBB.h"
+#include "Colliders/OBB.h"
 #include "settings.h"
 
-#include "Tank.h"
+#include "Entities/Vehicles/Tank.h"
 
 #include <GLFW\glfw3.h>
-#include <ResourceManager.h>
+#include <ResourceManager/ResourceManager.h>
 
 MathDemoApp::MathDemoApp() {
 

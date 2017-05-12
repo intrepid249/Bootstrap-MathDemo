@@ -1,4 +1,4 @@
-#include "SpriteNode.h"
+#include "Nodes/SpriteNode.h"
 #include <Texture.h>
 #include <Renderer2D.h>
 
