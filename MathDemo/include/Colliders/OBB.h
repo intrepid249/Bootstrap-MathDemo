@@ -21,20 +21,18 @@ public:
 	
 	/** Calculate the normals for each of the faces*/
 	std::vector<Vector2<float>> calculateFaceNormals();
-	/** Check if a value is between two bounding values*/
-	bool isBetweenOrdered(float val, float lowerBound, float upperBound);
 
-	/** Calculate the minimum and maximum vertices along an axis vector
-	* @param axis - check along this vector
-	* @param min - the function will modify this value by reference
-	* @param max - the function will modify this value by reference*/
-	void calcMinMax(const Vector2<float>& axis, float &min, float &max);
 	/** Check if a point is within the bounding region*/
 	bool contains(Vector2<float> &point);
 	/** Check if a line intersects the collider box*/
 	bool intersects(/*line*/) {}
 	/** Check if we collide with another collider box*/
 	bool collides(OBB &rhs);
+
+	/*Set the size of the OBB*/
+	void setSize(const Vector2<float> &size);
+	/*Get the size of the OBB*/
+	Vector2<float>& getSize();
 
 protected:
 	Vector2<float> m_size;

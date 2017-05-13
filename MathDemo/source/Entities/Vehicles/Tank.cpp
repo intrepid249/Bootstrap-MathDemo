@@ -6,6 +6,7 @@
 #include "Particles/ParticleGenerator.h"
 #include <Texture.h>
 #include <ResourceManager\ResourceManager.h>
+#include "settings.h"
 
 #include <iostream>
 
@@ -120,6 +121,18 @@ void Tank::updateControls(aie::Input * input) {
 		m_isShootingMachinegun = false;
 }
 
+void Tank::constrainBulletsToScreen(std::vector<OBB*> screenBounds, bool doBounce) {
+	for (size_t i = 0; i < m_bullets.size(); ++i) {
+		OBB* collider = m_bullets[i]->getCollider();
+		Vector2<float> front = collider->calculateFaceNormals()[1];
+		// Check if we collide with the camera edges
+		for (size_t b = 0; b < screenBounds.size(); ++b)
+			if (collider->collides(*screenBounds[b])) {
+				m_bullets[i]->setRotate(m_bullets[i]->getLocRot() - degToRad(180));
+			}
+	}
+}
+
 void Tank::render(aie::Renderer2D * renderer) {
 	Vehicle::render(renderer);
 	m_turret->render(renderer);
@@ -137,14 +150,16 @@ void Tank::render(aie::Renderer2D * renderer) {
 bool Tank::checkCollision(std::vector<Node*> objects) {
 	for (size_t i = 0; i < m_bullets.size(); ++i) {
 		OBB* collider = m_bullets[i]->getCollider();
+		// Check bullet collisions with a list of objects
 		for (size_t o = 0; o < objects.size(); ++o)
 			if (collider->collides(*objects[o]->getCollider())) {
 				std::unique_ptr<ParticleGenerator> pgen = std::unique_ptr<ParticleGenerator>(new ParticleGenerator(objects[o]->getTexture()));
-				pgen->setLifetime(1.2);
+				pgen->setLifetime(1.2f);
 				pgen->translate(m_bullets[i]->getTransform().getTranslation());
 				pgen->createExplosion(3, 10, 5, 15);
 				m_particleGenerators.push_back(std::move(pgen));
 				m_bullets[i]->setDrawn(false);
+				
 				return true;
 			}
 	}

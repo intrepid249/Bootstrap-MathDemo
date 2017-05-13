@@ -51,6 +51,11 @@ bool MathDemoApp::startup() {
 	// Initialise the control schemes
 	initControlLayouts();
 
+	float boxDimension = 20;
+	std::unique_ptr<OBB> north = std::unique_ptr<OBB>(new OBB(SCREENWIDTH, boxDimension));
+	north->translate(Vector2<float>(0, 0));
+	m_screenBounds.push_back(std::move(north));
+
 	// Make a tank for the player to drive around in
 	tank = std::unique_ptr<Tank>(new Tank(m_textures[TANK_TEX].get(), m_textures[TANK_TURRET_TEX].get(), 
 									m_textures[TANK_BULLET_TEX].get(), m_textures[TANK_SHELL_TEX].get()));
@@ -68,9 +73,9 @@ bool MathDemoApp::startup() {
 	m_reticle = std::unique_ptr<SpriteNode>(new SpriteNode(m_textures[RETICLE_TEX].get()));
 
 	// Make some rocks
-	for (size_t i = 0; i < 1; ++i) {
+	for (size_t i = 0; i < 3; ++i) {
 		std::unique_ptr<GameEntity> rock = std::unique_ptr<GameEntity>(new GameEntity(m_textures[LARGE_ROCK_TEX].get()));
-		rock->translate(Vector2<float>(500, 200));
+		rock->translate(Vector2<float>((float)(rand() % (1000) - 1000), 200));
 		m_rocks.push_back(std::move(rock));
 	}
 
@@ -81,6 +86,9 @@ bool MathDemoApp::startup() {
 
 	for (size_t i = 0; i < m_rocks.size(); ++i)
 		m_nodes.push_back(m_rocks[i].get());
+
+	for (size_t i = 0; i < m_screenBounds.size(); ++i)
+		m_nodes.push_back(m_screenBounds[i].get());
 
 	return true;
 }
@@ -104,6 +112,9 @@ void MathDemoApp::update(float deltaTime) {
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+
+	for (size_t i = 0; i < m_screenBounds.size(); ++i)
+		m_screenBounds[i]->updatePointsByMatrix((float*)m_screenBounds[i]->calculateGlobalTransform());
 
 	//Update the list of world objects
 	for (size_t i = 0; i < m_nodes.size(); ++i)
@@ -141,4 +152,9 @@ void MathDemoApp::checkCollisions() {
 	for (size_t i = 0; i < m_rocks.size(); ++i)
 		rocks.push_back(m_rocks[i].get());
 	tank->checkCollision(rocks);
+
+	std::vector<OBB*> screenBounds;
+	for (size_t i = 0; i < m_screenBounds.size(); ++i)
+		screenBounds.push_back(m_screenBounds[i].get());
+	tank->constrainBulletsToScreen(screenBounds, true);
 }

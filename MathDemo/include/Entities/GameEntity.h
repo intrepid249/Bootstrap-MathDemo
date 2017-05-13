@@ -21,6 +21,11 @@ public:
 	* @see MathDemo::Node#render(aie::Renderer2D)*/
 	virtual void render(aie::Renderer2D *renderer);
 
+	/*Set the size of the Game Object*/
+	void setSize(const Vector2<float> &size);
+	/*Get the size of the Game Object*/
+	Vector2<float>& getSize();
+
 	/** Get a pointer to the collider box*/
 	OBB* getCollider();
 

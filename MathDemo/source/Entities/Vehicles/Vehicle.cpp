@@ -72,7 +72,7 @@ void Vehicle::update(float dt) {
 			m_moveSpeed = Vector2<float>(0, 0);
 
 		///Rotation controls
-		// update the rotation to turn our heading vector
+		// Update the rotation to turn our heading vector
 		if (m_turnL)
 			m_turnSpeed = TANK_TURNSPEED;
 		else if (m_turnR)
@@ -85,6 +85,7 @@ void Vehicle::update(float dt) {
 		camPos.x -= SCREENWIDTH / 2;
 		camPos.y -= SCREENHEIGHT / 2;
 
+		// Dereference the pointer so that we're modifying the actual value
 		*m_cameraPos = camPos;
 
 
