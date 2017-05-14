@@ -107,6 +107,8 @@
     <ClInclude Include="include\Nodes\SpriteNode.h" />
     <ClInclude Include="include\Entities\Vehicles\Tank.h" />
     <ClInclude Include="include\Entities\Vehicles\Vehicle.h" />
+    <ClInclude Include="include\StateMachine\State.h" />
+    <ClInclude Include="include\StateMachine\StateMachine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Particles\ParticleGenerator.cpp" />
@@ -120,6 +122,8 @@
     <ClCompile Include="source\MathDemoApp.cpp" />
     <ClCompile Include="source\Nodes\Node.cpp" />
     <ClCompile Include="source\Nodes\SpriteNode.cpp" />
+    <ClCompile Include="source\StateMachine\State.cpp" />
+    <ClCompile Include="source\StateMachine\StateMachine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
