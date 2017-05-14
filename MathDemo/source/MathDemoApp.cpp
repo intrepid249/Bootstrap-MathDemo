@@ -36,6 +36,7 @@ void MathDemoApp::initControlLayouts() {
 bool MathDemoApp::startup() {
 	// Initialise the renderer
 	m_renderer = std::unique_ptr<aie::Renderer2D>(new aie::Renderer2D());
+
 	// Initialise the font
 	m_font = ResourceManager::loadUniqueResource<aie::Font>("./font/consolas.ttf", 32);
 
@@ -50,11 +51,6 @@ bool MathDemoApp::startup() {
 
 	// Initialise the control schemes
 	initControlLayouts();
-
-	float boxDimension = 20;
-	std::unique_ptr<OBB> north = std::unique_ptr<OBB>(new OBB(SCREENWIDTH, boxDimension));
-	north->translate(Vector2<float>(0, 0));
-	m_screenBounds.push_back(std::move(north));
 
 	// Make a tank for the player to drive around in
 	tank = std::unique_ptr<Tank>(new Tank(m_textures[TANK_TEX].get(), m_textures[TANK_TURRET_TEX].get(), 
@@ -71,6 +67,17 @@ bool MathDemoApp::startup() {
 
 	// Make a custom cursor reticle
 	m_reticle = std::unique_ptr<SpriteNode>(new SpriteNode(m_textures[RETICLE_TEX].get()));
+
+	///Screen Bounds
+	float boxDimension = 40;
+	std::unique_ptr<OBB> north = std::unique_ptr<OBB>(new OBB(SCREENWIDTH, boxDimension));
+	m_screenBounds.push_back(std::move(north));
+	std::unique_ptr<OBB> south = std::unique_ptr<OBB>(new OBB(SCREENWIDTH, boxDimension));
+	m_screenBounds.push_back(std::move(south));
+	std::unique_ptr<OBB> east = std::unique_ptr<OBB>(new OBB(boxDimension, SCREENHEIGHT));
+	m_screenBounds.push_back(std::move(east));
+	std::unique_ptr<OBB> west = std::unique_ptr<OBB>(new OBB(boxDimension, SCREENHEIGHT));
+	m_screenBounds.push_back(std::move(west));
 
 	// Make some rocks
 	for (size_t i = 0; i < 3; ++i) {
@@ -100,9 +107,20 @@ void MathDemoApp::shutdown() {
 void MathDemoApp::update(float deltaTime) {
 
 	// Hide the default cursor
-	setShowCursor(false);
+	//setShowCursor(false);
 
 	aie::Input* input = aie::Input::getInstance();
+
+	///Screen Bounds
+	// North
+	m_screenBounds[0]->getTransform().setTranslation(Vector2<float>(m_cameraPos.x + SCREENWIDTH/2, m_cameraPos.y + SCREENHEIGHT));
+	// South
+	m_screenBounds[1]->getTransform().setTranslation(Vector2<float>(m_cameraPos.x + SCREENWIDTH / 2, m_cameraPos.y));
+	// East
+	m_screenBounds[2]->getTransform().setTranslation(Vector2<float>(m_cameraPos.x + SCREENWIDTH, m_cameraPos.y + SCREENHEIGHT / 2));
+	// West
+	m_screenBounds[3]->getTransform().setTranslation(Vector2<float>(m_cameraPos.x, m_cameraPos.y + SCREENHEIGHT / 2));
+
 
 	// Show the custom reticle image at the cursor position
 	Vector2<int> mousePos;
