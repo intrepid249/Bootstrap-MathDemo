@@ -44,31 +44,41 @@ void OBB::render(aie::Renderer2D *renderer) {
 }
 
 void OBB::updatePointsByMatrix(float  *worldMat) {
+	// Get the size of the bounding box 
 	float width = m_size.x;		float height = m_size.y;
+	// Get the offset coordinates of the bounding box
 	float xOrigin = 0.5f;		float yOrigin = 0.5f;
 
+	// Top-left vertex
 	float tlX = (0.0f - xOrigin) * width;		float tlY = (0.0f - yOrigin) * height;
+	// Top-right vertex
 	float trX = (1.0f - xOrigin) * width;		float trY = (0.0f - yOrigin) * height;
+	// Bottom-right vertex
 	float brX = (1.0f - xOrigin) * width;		float brY = (1.0f - yOrigin) * height;
+	// Bottom-left vertex
 	float blX = (0.0f - xOrigin) * width;		float blY = (1.0f - yOrigin) * height;
 
-
 	float x, y;
+
+	// Modify the top left coordinates by the matrix
 	x = tlX; y = tlY;
 	tlX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	tlY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
 	m_points[0] = Vector2<float>(tlX, tlY);
 
+	// Modify the top right coordinates by the matrix
 	x = trX; y = trY;
 	trX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	trY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
 	m_points[1] = Vector2<float>(trX, trY);
 
+	// Modify the bottom right coordinates by the matrix
 	x = brX; y = brY;
 	brX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	brY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
 	m_points[2] = Vector2<float>(brX, brY);
 
+	// Modify the bottom left coordinates by the matrix
 	x = blX; y = blY;
 	blX = x * worldMat[0] + y * worldMat[3] + worldMat[6];
 	blY = x * worldMat[1] + y * worldMat[4] + worldMat[7];
@@ -90,7 +100,7 @@ std::vector<Vector2<float>> OBB::calculateFaceNormals() {
 }
 
 bool OBB::contains(Vector2<float> & point) {
-	Vector2<float> pos = m_parent->getLocPos();
+	Vector2<float> pos = calculateGlobalTransform().getTranslation();
 
 	if (point.x < pos.x-m_size.x / 2 || point.x > pos.x+m_size.x / 2) return false;
 	if (point.y < pos.y-m_size.y / 2 || point.y > pos.y+m_size.y / 2) return false;
@@ -110,4 +120,12 @@ bool OBB::collides(OBB & rhs) {
 
 
 	return true;
+}
+
+void OBB::setSize(const Vector2<float>& size) {
+	m_size = size;
+}
+
+Vector2<float>& OBB::getSize() {
+	return m_size;
 }

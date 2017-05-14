@@ -48,7 +48,7 @@ protected:
 	bool m_moveFW, m_moveBW, m_turnL, m_turnR;			// Movement flag
 	Vector2<float> m_moveSpeed;							
 	float m_turnSpeed;									
-	
+
 	Vector2<float> *m_cameraPos;						// Store a pointer to the camera position for modification
 
 	bool m_userControlled;								// Whether or not the vehicle will accept user input

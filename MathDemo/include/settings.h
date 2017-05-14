@@ -3,7 +3,11 @@
 #ifndef SCREENDEFINES
 #define SCREENDEFINES
 
+#ifdef _DEBUG
+#define APPTITLE "Math Demonstration - (DEBUG)"
+#else
 #define APPTITLE "Math Demonstration"
+#endif
 #define SCREENWIDTH 1640
 #define SCREENHEIGHT 960
 #define FULLSCREEN false

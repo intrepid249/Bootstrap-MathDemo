@@ -58,5 +58,5 @@ protected:
 	std::vector<std::unique_ptr<GameEntity>> m_rocks;
 
 	Vector2<float> m_cameraPos;
-	//OBB m_northBounds, m_southBounds, m_eastBounds, m_westBounds;
+	std::vector<std::unique_ptr<OBB>> m_screenBounds;
 };

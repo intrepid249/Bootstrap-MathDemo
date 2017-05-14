@@ -6,6 +6,7 @@
 #include "Particles/ParticleGenerator.h"
 #include <Texture.h>
 #include <ResourceManager\ResourceManager.h>
+#include "settings.h"
 
 #include <iostream>
 
@@ -86,21 +87,13 @@ void Tank::update(float dt) {
 		m_turret->setRotate(atan2f(mousePos.y, mousePos.x) - getLocRot());
 
 		// Rotate the barrel's bullet spawning node
-		float rad = degToRad(m_turret->getTransform().getRotationZ());
-		m_barrel->translate(Vector2<float>(-m_barrel->getLocPos().x, 0.0f)); // translate it back to the origin of rotation
+		float rad = degToRad(m_turret->calculateGlobalTransform().getRotationZ());
 		m_barrel->setRotate(rad); // rotate around the offset
-		m_barrel->translate(Vector2<float>(m_turret->getSize().x, 0.0f)); // and put it back where it should be
-
-
 		///Machine guns
 		// left gun
-		m_machinegunLeft->translate(Vector2<float>(-m_turret->getSize().x / 2, 0.0f)); // translate it back to the origin of rotation
 		m_machinegunLeft->setRotate(rad); // rotate around the offset
-		m_machinegunLeft->translate(Vector2<float>(m_turret->getSize().x / 2, 0.0f)); // and put it back where it should be
 		// right gun
-		m_machinegunRight->translate(Vector2<float>(-m_turret->getSize().x / 2, 0.0f)); // translate it back to the origin of rotation
 		m_machinegunRight->setRotate(rad); // rotate around the offset
-		m_machinegunRight->translate(Vector2<float>(m_turret->getSize().x / 2, 0.0f)); // and put it back where it should be
 
 		doCleanup();
 	}
@@ -120,6 +113,19 @@ void Tank::updateControls(aie::Input * input) {
 		m_isShootingMachinegun = false;
 }
 
+void Tank::constrainBulletsToScreen(std::vector<OBB*> screenBounds, bool doBounce) {
+	for (size_t i = 0; i < m_bullets.size(); ++i) {
+		OBB* collider = m_bullets[i]->getCollider();
+		Vector2<float> front = collider->calculateFaceNormals()[1];
+		// Check if we collide with the camera edges
+		for (size_t b = 0; b < screenBounds.size(); ++b)
+			if (collider->collides(*screenBounds[b])) {
+				float rot =  ( 180 - radToDeg(m_bullets[i]->getLocRot()));
+				m_bullets[i]->setRotate(rot);
+			}
+	}
+}
+
 void Tank::render(aie::Renderer2D * renderer) {
 	Vehicle::render(renderer);
 	m_turret->render(renderer);
@@ -137,14 +143,16 @@ void Tank::render(aie::Renderer2D * renderer) {
 bool Tank::checkCollision(std::vector<Node*> objects) {
 	for (size_t i = 0; i < m_bullets.size(); ++i) {
 		OBB* collider = m_bullets[i]->getCollider();
+		// Check bullet collisions with a list of objects
 		for (size_t o = 0; o < objects.size(); ++o)
 			if (collider->collides(*objects[o]->getCollider())) {
 				std::unique_ptr<ParticleGenerator> pgen = std::unique_ptr<ParticleGenerator>(new ParticleGenerator(objects[o]->getTexture()));
-				pgen->setLifetime(1.2);
+				pgen->setLifetime(1.2f);
 				pgen->translate(m_bullets[i]->getTransform().getTranslation());
 				pgen->createExplosion(3, 10, 5, 15);
 				m_particleGenerators.push_back(std::move(pgen));
 				m_bullets[i]->setDrawn(false);
+				
 				return true;
 			}
 	}
@@ -174,7 +182,8 @@ void Tank::shootMainGun() {
 	
 	std::unique_ptr<Bullet> bullet = std::unique_ptr<Bullet>(new Bullet(m_shellTex));
 	bullet->translate(m_barrel->calculateGlobalTransform().getTranslation());
-	bullet->setRotate(m_barrel->calculateGlobalTransform().getRotationZ());
+	Vector2<float> front = m_turret->getCollider()->calculateFaceNormals()[0];
+	bullet->setRotate(atan2f(front.y, front.x));
 	bullet->setMoveSpeed(TANKSHELL_SPEED);
 	bullet->setLifetime(TANKSHELL_LIFETIME);
 	m_bullets.push_back(std::move(bullet));

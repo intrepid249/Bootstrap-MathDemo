@@ -31,6 +31,15 @@ void GameEntity::render(aie::Renderer2D * renderer) {
 	}
 }
 
+void GameEntity::setSize(const Vector2<float>& size) {
+	SpriteNode::setSize(size);
+	m_collider->setSize(size);
+}
+
+Vector2<float>& GameEntity::getSize() {
+	return m_size;
+}
+
 OBB* GameEntity::getCollider() {
 	return m_collider.get();
 }

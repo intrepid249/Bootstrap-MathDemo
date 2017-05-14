@@ -24,6 +24,10 @@ public:
 	/** Overload the parent's update controls function
 	* @see MathDemo::Vehicle#updateControls(aie::Input)*/
 	virtual void updateControls(aie::Input *input);
+	/** Bounce the bullets around within the bounds of the screen
+	* @param doBounce - flag that sets if the bullets bounce off the edge
+	of the screen or simply destroy themselves*/
+	void constrainBulletsToScreen(std::vector<OBB*> screenBounds, bool doBounce);
 	/** Overload the parent's render function
 	* @see MathDemo::Node#render(aie::Renderer2D)*/
 	virtual void render(aie::Renderer2D *renderer);
