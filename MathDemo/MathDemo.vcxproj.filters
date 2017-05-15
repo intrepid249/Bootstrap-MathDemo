@@ -93,6 +93,9 @@
     <ClInclude Include="include\StateMachine\StateMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\StateMachine\StateSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Colliders\OBB.cpp">

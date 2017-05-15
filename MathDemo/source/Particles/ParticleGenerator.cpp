@@ -17,9 +17,11 @@ void ParticleGenerator::update(float dt) {
 	for (size_t i = 0; i < m_particles.size(); ++i)
 		m_particles[i]->update(dt);
 
-	m_lifetime -= dt;
-	if (m_lifetime <= 0)
-		m_isDrawn = false;
+	if (m_lifetime != -1) {
+		m_lifetime -= dt;
+		if (m_lifetime <= 0)
+			m_isDrawn = false;
+	}
 }
 
 void ParticleGenerator::render(aie::Renderer2D * renderer) {
@@ -41,6 +43,8 @@ void ParticleGenerator::createExplosion(int minParticles, int maxParticles, floa
 		m_particles.push_back(std::move(particle));
 	}
 }
+
+
 
 void ParticleGenerator::setLifetime(float val) {
 	m_lifetime = val;

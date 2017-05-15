@@ -109,6 +109,7 @@
     <ClInclude Include="include\Entities\Vehicles\Vehicle.h" />
     <ClInclude Include="include\StateMachine\State.h" />
     <ClInclude Include="include\StateMachine\StateMachine.h" />
+    <ClInclude Include="include\StateMachine\StateSettings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Particles\ParticleGenerator.cpp" />
